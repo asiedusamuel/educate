@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <base href='<app:config field="url" />' />
+    <title><app:config field="sitename" /></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Asiedu Samuel">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="img/icon.png" type="image/png">
+
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900' rel='stylesheet'
+        type='text/css'>
+    <link rel="stylesheet" href="css/icon.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/component.css" type="text/css">
+    <link rel="stylesheet" href="css/menu.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+</head>
+
+<body>
+    <section class="wrap-content">
+        <header class="wrap-header start_bg_zoom random-bg">
+            <div class="info-box-01">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4 col-lg-4 text-sm-center">
+                            <ul class="social-list-01">
+                                <li>
+                                    <a href="#">
+                                        <i class="icon facebook f" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon twitter" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon instagram" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon google plus g" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-12 col-md-8 col-lg-8 text-sm-center text-right">
+                            <div class="contact-block-01">
+                                <a class="contact-block-01__email" href="mailto:#"><i class="icon mail"></i>
+                                    smartedu@localhost</a>
+                                <p class="contact-block-01__phone"><i class="icon phone"></i> 020 000 0000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-12 col-md-2 cssmenu-btn-placeholder">
+                            <a href="./" class="logo">
+                                <img src="img/logo_white.png" alt="">
+                            </a>
+                        </div>
+                        <div class="col-lg-10 col-sm-12 col-md-10" id='cssmenu'>
+                            <ul class="main-nav-list mainmenu">
+                                <li class="active"><a href='#'>Home</a></li>
+                                <li class='has-sub'><a href='#'>Explore</a>
+                                    <ul>
+                                        <li><a href='#'>English</a></li>
+                                        <li><a href='#'>Integrated Science</a></li>
+                                        <li><a href='#'>Elective Maths</a></li>
+                                        <li><a href='#'>Core Maths</a></li>
+                                        <li><a href='#'>Biology</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'>About</a></li>
+                                <li><a href='#'>Contact</a></li>
+                                <li class="user-auth-link login"><a href="#"><i class="icon unlock small"></i> Sign In</a></li>
+                                <li class="user-auth-link register"><a href="#"><i class="icon user small"></i>
+                                        Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <section class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <ol class="breadcrumb ">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="#" title="Smart Learning Homepage">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="#" title="Courses">Courses</a>
+                    </li>
+
+                    <li>
+                        <a href="#" title="Elective Mathematics">
+                            Elective Mathematics
+                        </a>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-row">
+        <app:view />
+    </section>
+
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1">
+                    <a href="./" class="logo">
+                        <img src="img/logo_white.png" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-11">
+                    <ul class="footer-links">
+                        <li>&copy; Smart Education 2018</li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li class="author"><a href="http://filycoder.com" target="_blank">Developed by Filly Coder</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <div class="md-modal md-effect" id="modal-start-lesson">
+        <div class="md-content">
+            <div class="video-panel">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                        </div>
+                    </div>
+                </div>
+                <div class="outer">
+                    <div class="middle">
+                        <div class="inner">
+                            <video id="player" playsinline controls>
+                                <!-- <source src="/path/to/video.webm" type="video/webm"> -->
+                                <!-- Captions are optional -->
+                                <!-- <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default> -->
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="description-panel">
+                <div data-nav="info">
+                    <h4 class="title">Elective Mathematics</h4>
+                    <ul class="playlist">
+                        <li class="active">
+                            <span class="lesson">Lesson 1: Introduction to Mathematics</span>
+                            <span class="time">50:34</span>
+                        </li>
+                        <li>
+                            <span class="lesson">Lesson 1: Introduction to Mathematics</span>
+                            <span class="time">50:34</span>
+                        </li>
+                        <li>Lesson 2</li>
+                        <li>Lesson 3</li>
+                        <li>Lesson 4</li>
+                    </ul>
+                </div>
+                <div data-nav="attachment">
+                    <div class="title">Course Attachment</div>
+                </div>
+                <div data-nav="notes" class="active">
+                    <h4 class="title">My Notes</h4>
+                    <div class="row toolbar">
+                        <div class="col cmd save">Save</div>
+                        <div class="col cmd add-note">Add Note</div>
+                    </div>
+                </div>
+                <div data-nav="comments">comments</div>
+            </div>
+            <div class="nav-panel">
+                <ul>
+                    <li><a href="javascript:void(0);" class="md-icon md-close"></a></li>
+                    <li><a href="javascript:void(0);" class="md-icon md-info active" data-nav="info"></a></li>
+                    <li><a href="javascript:void(0);" class="md-icon md-attachment" data-nav="attachment"></a></li>
+                    <li><a href="javascript:void(0);" class="md-icon md-note" data-nav="notes"></a></li>
+                    <li><a href="javascript:void(0);" class="md-icon md-comments" data-nav="comments"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="md-modal md-effect" id="modal-take-test">
+        <div class="md-content">
+            <div class="outer">
+                <div class="middle">
+                    <div class="inner">
+                        <div class="container">
+                            <div class="row test-panel">
+                                <div class="col-lg-10">
+                                    <img alt="logo" src="./img/logo_green.png" />
+                                </div>
+                                <div class="col-lg-2 text-right">
+                                    <h1 class="timer">0:00</h1>
+                                </div>
+                                <div class="col-lg-8 offset-2 stage">
+                                    <div class="notice">
+                                        <div style="text-align:center;">
+                                            <img src="./img/notice.png" alt="notice" />
+                                        </div> 
+                                        <h3 class="notice-title">Notice</h3>
+                                        <p>
+                                            Please read the following instructions.
+                                            <ol>
+                                                <li>You have <strong>30 question</strong> in all to answer.</li>
+                                                <li>You have approximately <strong>1 minute</strong> for each question.</li>
+                                                <li>When your time for a question ellapse, the system will automatically skip to next question. </li>
+                                                <li>Once ready click on the START button below </li>
+                                            </ol>
+                                        <div style="text-align:center; padding-top: 15px;"> 
+                                            <a href="javascript:void(0);" style="width:30%;" class="btn-custom">START</a> 
+                                            <a href="javascript:void(0);" style="width:30%;" class="btn-custom red md-close">NOT READY YET</a> 
+                                        </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
+    <app:scripts />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.barrating.min.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/classie.js"></script>
+    <script type="text/javascript" src="js/modalEffects.js"></script>
+    <script type="text/javascript" src="js/plyr.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+
+</html>

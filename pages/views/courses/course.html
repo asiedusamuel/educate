@@ -1,0 +1,134 @@
+<div class="container">
+    <div class="row">
+        <div class="course-brief col-lg-12">
+            <div class="row">
+                <div class="col-lg-7 col-md-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <img src="./uploads/courses/e-maths.jpg" class="img-fluid" />
+                        </div>
+                        <div class="col-lg-8 col-md-8">
+                            <h3 class="course-title">Elective Mathematics</h3>
+                            <a href="javascript:;" class="btn-custom mb-2 md-trigger" data-modal="modal-start-lesson">Start
+                                Learning</a>
+                            <a href="javascript:;" class="btn-custom blue mb-2 md-trigger" data-modal="modal-take-test">Take
+                                Test</a>
+                            <select id="rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <ul class="course-icons">
+                        <li>
+                            <div class="object-icon">
+                                <img src="<%TemplatePath%>/img/modules.png" />
+                            </div>
+                            <label class="object-text figure">5</label>
+                            <label class="object-text grey">Modules</label>
+                        </li>
+                        <li>
+                            <div class="object-icon">
+                                <img src="<%TemplatePath%>/img/topics.png" />
+                            </div>
+                            <label class="object-text figure">13</label>
+                            <label class="object-text">Topics</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <nav class="nav nav-pills mb-3 course-brief-tab nav-justified">
+                <a class="nav-link active" href="#overview">Overview</a>
+                <a class="nav-link" href="#modules">Modules</a>
+                <a class="nav-link" href="#teachers">Teachers</a>
+                <a class="nav-link" href="#reviews">Reviews</a>
+            </nav>
+            <div class="tab-content course-brief-tab-content">
+                <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                    <%overview%>
+                </div>
+                <div class="tab-pane fade" id="modules" role="tabpanel" aria-labelledby="modules-tab">
+                    <div class="module">
+                        <!-- <h5>Level 100</h3> -->
+                        <%lessons%>                            
+                    </div>
+                    <a href="#" class="btn-custom md-trigger" data-modal="modal-take-test">Take End of Course
+                        Test</a>
+                </div>
+                <div class="tab-pane fade" id="teachers" role="tabpanel" aria-labelledby="teachers-tab">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4 class="mb-3">Course Teachers</h4>
+                            <p>
+                                Reiciendis alias molestiae fuga accusantium, expedita nam natus in dolores
+                                dignissimos repellat placeat necessitatibus porro unde sunt amet quasi
+                                consequatur udiandae volup. Voluptas accusantium officia quaerat minima ex
+                                aspernatur.
+                            </p>
+                            <a href="#" class="btn-custom">Learn More</a>
+                        </div>
+                        <div class="col-lg-3 teacher">
+                            <div class="name">Samuel Asiedu</div>
+                            <div class="prof">MSc Mathematics / Professor</div>
+                            <div class="overlay">
+                                <a href="#" class="btn btn-outline-dark btn-sm icon"><i class="icon facebook f"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm icon"><i class="icon twitter"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm icon"><i class="icon instagram"></i></a>
+                            </div>
+                            <img src="./img/teacher_1.jpg" alt="teacher" class="img-fluid">
+                        </div>
+                        <div class="col-lg-3 teacher">
+                            <div class="name">Samuel Asiedu</div>
+                            <div class="prof">BSc Mathematics / Professor</div>
+                            <div class="overlay">
+                                <a href="#" class="btn btn-outline-dark btn-sm icon"><i class="icon facebook f"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm icon"><i class="icon twitter"></i></a>
+                                <a href="#" class="btn btn-outline-dark btn-sm icon"><i class="icon instagram"></i></a>
+                            </div>
+                            <img src="./img/teacher_2.jpg" alt="teacher" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    <ul class="reviews">
+                        <li class="review">
+                            <img src="./img/comment1.png" alt="" class="review-avatar">
+                            <div class="review-details">
+                                <a href="#" class="user">Jack Porter</a>
+                                <span class="date">14 JANUARY 2016 AT 12:24 AM</span>
+                                <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet
+                                    doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit
+                                    amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+                                    ut laoreet dolore magna aliquam erat volutpat. </p>
+                                <a href="#" class="btn-custom small grey quick-reply">Reply</a>
+                            </div>
+
+                        </li>
+                        <li class="review">
+                            <img src="./img/comment2.png" alt="" class="review-avatar">
+                            <div class="review-details">
+                                <a href="#" class="user">Jack Porter</a>
+                                <span class="date">14 JANUARY 2016 AT 12:24 AM</span>
+                                <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet
+                                    doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit
+                                    amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
+                                    ut laoreet dolore magna aliquam erat volutpat. </p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="reply-container">
+                        <h5>LEAVE A REPLY</h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

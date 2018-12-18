@@ -1,0 +1,109 @@
+<div class="stage-sidebar">
+	<a @click="openCourseEditor" style="border-radius:0;" class="ui fluid button icon primary"><i class="icon plus"></i>
+		Add New Course</a>
+	<ul class="list">
+		<li v-for="(item, key) in data.courses">
+			<a href="javascript:;" v-bind:data-id="key" v-on:click="viewCourse">
+				{{ item.course }}
+				<button data-content="Delete" data-variation="mini inverted" data-position="left center" class="cmd icon-only ui button mini icon"
+				 :data-id="key" v-on:click="deleteCourse">
+					<i class="icon trash"></i>
+				</button>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="stage-content pb-6">
+	<div class="ui placeholder segment">
+		<div class="ui icon header">
+			<i class="dont icon"></i>
+			Select course to display details.
+		</div>
+		<div class="ui primary button" @click="openCourseEditor">Add New Course</div>
+	</div>
+	<div class="ui top attached tabular menu">
+		<a class="item active" data-tab="edit">Edit Details</a>
+		<a class="item" data-tab="lessons" @click="loadLessons">Lessons</a>
+	</div>
+	<div class="ui bottom attached active tab segment scroll-area" data-tab="edit">
+		<div class="row">
+			<div class="col-lg-12" style="margin-bottom:80px;">
+				<form class="ui form course" @submit.prevent="saveCourse">
+					<input type="hidden" v-on:change="textChange($el, $event.target.value,'id')" name="id" />
+					<div class="field col-lg-6 p-0">
+						<label>Course Title</label>
+						<div class="ui input">
+							<input type="text" v-on:change="textChange($el, $event.target.value,'course')" name="course" />
+						</div>
+					</div>
+					<div class="field col-lg-6 p-0">
+						<label>Course Alias</label>
+						<div class="ui input">
+							<input type="text" v-on:change="textChange($el, $event.target.value,'flag')" name="alias" />
+						</div>
+						<small class="gray">For simple URL Eg. http://localhost.com/e-maths/. Note: No whitespaces are allowed. Replace
+							all whitespaces with hyphen (-)</small>
+					</div>
+					<div class="field">
+						<label>Course Overview</label>
+						<div class="ui input">
+							<v-summernote name="overview" @SNChange="onSNChange"></v-summernote>
+						</div>
+					</div>
+					<div class="field">
+						<button class="ui button primary">Save Details</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<div class="ui bottom attached tab segment scroll-area p-0 mb-5" data-tab="lessons">
+		<v-lessons></v-lessons>
+	</div>
+	<div class="ui bottom attached tab segment scroll-area p-0 mb-5" data-tab="lesson-video">
+		<div class="row m-0">
+			<div class="col-lg-12 p-2">
+				<button @click="switchToLessons" class="ui button mini black icon ml-3"><i class="icon arrow left"></i>Back to
+					lessons
+				</button>
+				<div class="row">
+					<div class="col-lg-6 mt-3">
+						<div class="pane">
+							<h5>HD 720p</h5>
+							<div class="pane-content">
+								<v-uploader @uploading="uploading" classes="uploader720p" name="file" allowed="mp4"></v-uploader>
+								<div class="ui error error-720 floating message">
+									<p>No video upload in this format. Upload one now</p>
+								</div>
+								<video class="mt-2" id="videoPlayer720" width="100%" height="240" controls>
+									 
+									Your browser does not support the video tag.
+								</video>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 mt-3">
+						<div class="pane">
+							<h5>360p</h5>
+							<div class="pane-content">
+								<v-uploader @uploading="uploading" classes="uploader360p" allowed="mp4,3gp"></v-uploader>
+								<div class="ui error error-360 floating message">
+									<p>No video upload in this format. Upload one now</p>
+								</div>
+								<video class="mt-2" id="videoPlayer360" width="100%" height="240" controls>
+									 
+									Your browser does not support the video tag.
+								</video>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+
+</div>
