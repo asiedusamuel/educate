@@ -47,8 +47,11 @@
 					<div class="field">
 						<label>Course Overview</label>
 						<div class="ui input">
-							<v-summernote name="overview" @SNChange="onSNChange"></v-summernote>
+							<v-wysiwyg @wysiwygChange="onWYSIWYGChange" name="overview"></v-wysiwyg>
 						</div>
+						<!-- <div class="ui input">
+							<v-summernote name="overview" @SNChange="onSNChange"></v-summernote>
+						</div> -->
 					</div>
 					<div class="field">
 						<button class="ui button primary">Save Details</button>

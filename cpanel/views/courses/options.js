@@ -87,7 +87,7 @@ export default {
                 dom.find('.ui.form.course input[name=course]').val($course.course);
                 dom.find('.ui.form.course input[name=id]').val($course.id);
                 dom.find('.ui.form.course input[name=alias]').val($course.flag);
-                dom.find('.ui.form.course #summernote').summernote('code', $course.overview);
+                dom.find('.ui.form.course .trumbowyg-textarea').trumbowyg('html', $course.overview);
                 if ($this.data.lessons[$id]) {
                     $this.data.lessons.selected = $this.data.lessons[$id];
                 } else {
@@ -109,7 +109,7 @@ export default {
         },
         // This is an event handler which is triggered on sumer note editor in the course editor.
         // It is triggered on keyup or value change
-        onSNChange: function (val) {
+        onWYSIWYGChange: function (val) {
             var dom = $(this.$el);
             var $id = dom.find('.ui.form.course').data('id');
             this.data.courses[$id].overview = val;

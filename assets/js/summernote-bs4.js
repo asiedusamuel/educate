@@ -6148,7 +6148,7 @@
               title: this.lang.link.insert,
               fade: this.options.dialogsFade,
               body: body,
-              footer: footer
+              footer: footer,
           }).render().appendTo($container);
       };
       LinkDialog.prototype.destroy = function () {

@@ -37,7 +37,7 @@ Vue.component('v-uploader', {
             Upload.setOptions({
                 start: function (file) {
                     //upload started
-                    $this.$emit('uploading','start',[$input, file])
+                    $this.$emit('uploading', 'start', [$input, file])
                     dom.find('.progress-bars .ui.progress').show().progress({
                         percent: 0
                     });
@@ -46,17 +46,17 @@ Vue.component('v-uploader', {
                     dom.find('.progress-bars .ui.progress').progress({
                         percent: Math.round(progress)
                     });
-                    $this.$emit('uploading','progress',[$input, progress])
+                    $this.$emit('uploading', 'progress', [$input, progress])
                 },
                 success: function (data) {
                     //upload successful
                     dom.find('.progress-bars .ui.progress').hide();
                     app.message.toast("success", "Upload Alert", "File uploaded successfully")
-                    $this.$emit('uploading','success',[$input, data])
+                    $this.$emit('uploading', 'success', [$input, data])
                 },
                 error: function (error) {
                     //upload failed
-                    $this.$emit('uploading','error',[$input, error])
+                    $this.$emit('uploading', 'error', [$input, error])
                     dom.find('.progress-bars .ui.progress').hide()
                     app.message.toast("error", "Upload Alert", "Failed uploading file. Reason: " + error.message)
                 }
@@ -139,7 +139,7 @@ Vue.component('v-uploader', {
                     cache: false,
                     contentType: false,
                     processData: false,
-                    dataType:'json',
+                    dataType: 'json',
                     timeout: 60000
                 });
             };
@@ -167,10 +167,12 @@ Vue.component('v-summernote', {
     props: ["name"],
     template: '<textarea id="summernote" v-on:SNChange="onSNChange" v-bind:name="name"></textarea>',
     created: function (e) {
+        this.loadPlugins();
         var $this = this;
         setTimeout(function () {
             $($this.$el).summernote({
                 minHeight: 100,
+                dialogsInBody: true,
                 callbacks: {
                     onChange: function (val) {
                         $this.$emit('SNChange', val)
@@ -180,6 +182,87 @@ Vue.component('v-summernote', {
         }, 100);
     },
     methods: {
-        onSNChange: function () { }
+        onSNChange: function () { },
+        loadPlugins: function(){
+            var scripts = [
+                'https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js'
+            ];
+            var styles = [
+                'https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css'
+            ]
+
+            scripts.forEach(function(element){
+                var script = document.createElement('script');
+                script.setAttribute('src', element);
+                document.head.appendChild(script);
+            });  
+            
+            styles.forEach(function(element){
+                var style = document.createElement('link');
+                style.setAttribute('rel', 'stylesheet');
+                style.setAttribute('href', element);
+                document.head.appendChild(style);
+            });         
+        }
     }
+
+});
+
+Vue.component('v-wysiwyg', {
+    props:["name"],
+    created: function (e) {
+        this.loadPlugins();
+        var $this = this;
+        setTimeout(function () {
+            $($this.$el).find('textarea').trumbowyg({
+                btns: [
+                    ['viewHTML'],['kotex'],
+                    ['formatting'],
+                    ['strong', 'em', 'del'],
+                    ['superscript', 'subscript'],
+                    ['link'],
+                    ['insertImage'],
+                    ['base64']
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                    ['removeformat'], 
+                    ['undo','redo'],
+                    ['fullscreen']
+                ]
+            }).on('tbwchange', function(obj){
+                var $val = $(obj.currentTarget).val();
+                $this.$emit('wysiwygChange', $val)
+            })
+        }, 1000);
+    },
+    methods:{
+        loadPlugins: function(){
+            var scripts = [
+                'https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js',
+                './assets/wysiwyg/plugins/equation/trumbowyg.equation.js',
+                './assets/wysiwyg/plugins/base64/trumbowyg.base64.js',
+            ];
+            var styles = [
+                'https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css',
+                './assets/wysiwyg/ui/trumbowyg.min.css',
+            ]
+
+            scripts.forEach(function(element){
+                var script = document.createElement('script');
+                script.setAttribute('src', element);
+                document.head.appendChild(script);
+            });  
+            
+            styles.forEach(function(element){
+                var style = document.createElement('link');
+                style.setAttribute('rel', 'stylesheet');
+                style.setAttribute('href', element);
+                document.head.appendChild(style);
+            });         
+        }
+    },
+    template:(`<div :class="'wysiwyg-editor '+ name">
+                    <textarea :name="name"></textarea>
+                </div>`)
 });

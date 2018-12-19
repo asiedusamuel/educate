@@ -40,6 +40,7 @@ if(!AJAX){
         "./assets/js/semanticfy.js",
         "./assets/js/jquery.form.serialize.js",
         "./assets/js/summernote-bs4.js",
+        "./assets/wysiwyg/trumbowyg.min.js",
         "./assets/js/jquery.toast.min.js",
         "./assets/js/wow.min.js",
         "./assets/js/jquery.simplefileupload.min.js",
