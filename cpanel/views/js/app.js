@@ -53,7 +53,30 @@ $(document).ready(function () {
         app.vue = new Vue({
             el: '#app',
             data: $data,
-            components: {},
+            components: {
+                'not-found': {
+                    created: function(){
+                        app.vue.$data.pageTitle = '404 Error';   
+                        setTimeout(function () {
+                            setSizes();
+                        }, 10);
+                    },
+                    data: function(){
+                        return {
+                            title: '404 Error'
+                        }
+                    },
+                    template: (`<div class="stage">
+                                    <div class="container-404">
+                                            <div class="wow bounce error-code infinite" data-wow-duration="5s" data-wow-delay="">4</div>
+                                            <div class="wow bounce error-code infinite" data-wow-duration="5s" data-wow-delay="100ms">0</div>
+                                            <div class="wow bounce error-code infinite" data-wow-duration="5s" data-wow-delay="400ms">4</div>
+                                        <p>Sorry!! We can't find the page you are looking for.</p>
+                                        <a href="./cpanel/#/dashboard/" class="ui button black">Back to Dashboard</a>
+                                    </div>
+                                </div>`)
+                }
+            },
             created: function () {                
                 this.navigate()
             },
@@ -100,12 +123,12 @@ $(document).ready(function () {
                                 }, 10);
 
                             } catch (error) {
-                                console.log(error)
                                 app.message.toast("error", "System Info", "Error rendering page content. Please try again.");
                             }
                         },
                         error: function (res) {
-                            app.message.toast("error", "System Info", "Request failed. Please check internet connectivity.");
+                            $this.currentPage = 'not-found';
+                            app.message.toast("error", "System Info", "Please check internet connectivity.");
                         }
                     });
 

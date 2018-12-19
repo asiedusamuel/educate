@@ -16,4 +16,14 @@ class cmd{
         }
         return null;
     }
+
+    static function getStyleSheet($path){
+        $path = __DIR__.'/../views/'.$path.'.css';
+        if(file_exists($path)){
+            $content = file_get_contents($path);
+            $content = base64_encode($content);
+            return $content;
+        }
+        return null;
+    }
 }

@@ -170,7 +170,7 @@ Vue.component('v-summernote', {
         var $this = this;
         setTimeout(function () {
             $($this.$el).summernote({
-                minHeight: 300,
+                minHeight: 100,
                 callbacks: {
                     onChange: function (val) {
                         $this.$emit('SNChange', val)

@@ -119,3 +119,5 @@ var app = {
         return dialog.clone();
     }
 }
+// Initialize WOW
+new WOW().init();

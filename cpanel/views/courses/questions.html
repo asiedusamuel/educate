@@ -1,0 +1,87 @@
+<div v-if="data.error">
+    <div class="container-404">
+        <div class="wow bounce error-code infinite" data-wow-duration="5s" data-wow-delay="">5</div>
+        <div class="wow bounce error-code infinite" data-wow-duration="5s" data-wow-delay="100ms">0</div>
+        <div class="wow bounce error-code infinite" data-wow-duration="5s" data-wow-delay="400ms">1</div>
+        <p>Sorry!! We can't find the lesson you selected.</p>
+        <a href="./cpanel/#/courses/" class="ui button black">Back to Courses</a>
+    </div>
+</div>
+<div v-else>
+    <div class="stage-sidebar">
+        <div class="ui m-2 message info">
+            This page will help you add, edit and delete questions.
+            <br />
+            <br />
+            <strong>Information</strong>
+            <hr class="mt-1 mb-1" />
+            <strong>Course:</strong> <br />
+            <span v-html="data.course.title"></span> <br /><br />
+            <strong>Lesson:</strong> <br />
+            <span v-html="data.course.lesson"></span> <br /> <br />
+            <strong>Total:</strong> <br />
+            <span v-html="data.questions.length + ' Questions'"></span>
+        </div>
+        <div class="m-2">
+            <button class="ui button primary fluid">Add New Question</button>
+        </div>
+
+    </div>
+    <div class="stage-content pb-6">
+        <div class="ui top attached tabular menu">
+            <a class="item active" data-tab="questions">Questions</a>
+        </div>
+        <div class="ui bottom attached active tab segment scroll-area p-0" data-tab="questions">
+            <div class="row m-0">
+                <div class="col-lg-5 p-0">
+                    <v-questions></v-questions>
+                </div>
+                <div class="col-lg-7 p-0">
+                    <h6 class="p-2 bg-black white">Question Editor</h6>
+                    <form class="ui form p-2 question">
+                        <input type="hidden" name="id" />
+                        <div class="field">
+                            <label>Question</label>
+                            <div class="ui input">
+                                <v-summernote name="question"></v-summernote>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>How do you want answers to be displayed?</label>
+                            <div class="ui input">
+                                <select name="options[type]" class="ui dropdown fluid">
+                                    <option value="text-list">Text List Style</option>
+                                    <option value="image-list">Image List Style</option>
+                                    <option value="single-line-text">Single Line Text</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="ui button mini icon mb-3"><i class="icon plus"></i> Add More Option</button>
+                        <div class="field answers-container">
+                            
+                        </div>
+                        <div class="field">
+                            <label>Does question requires multiple answers?</label>
+                            <div class="ui input">
+                                <label>No</label>
+                                <div class="ml-3 ui checkbox toggle">
+                                    <input name="options[multiple]" value="0" type="hidden"/>
+                                    <input name="options[multiple]" value="1" type="checkbox"/>
+                                    <label>Yes</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button class="ui button primary">Save Question</button>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

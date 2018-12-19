@@ -64,6 +64,21 @@ body.show-preloader .preloader {
     background-size: 25px;
 }
 
+/* Error 404 Style */
+.container-404{
+    margin: 0 auto;
+    padding-top: 10%;
+    width: 330px;
+    text-align: center;
+}
+.container-404 .error-code{
+    font-size: 11rem;
+    font-weight: 300;
+    display: inline-block;
+}
+
+/* Error 404 Style */
+
 /* Sidebar Nav Icons */
 
 .side-nav ul li a.dashboard::before {
