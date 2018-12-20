@@ -38,7 +38,15 @@ if(isset($_REQUEST["view"])){
         $res = ["title"=>'Courses'];
         $db = new Data;
         $db->Query("SELECT id, flag, course, image, overview FROM courses");
-        $res["data"]["courses"] = $db->Results();
+        $res["data"]["courses"] = [];
+        if($db->Count() > 0){
+            $data = $db->Results();
+            $i = 0;
+            foreach($data as $course){
+                $course["overview"] = html_entity_decode($course["overview"]);
+                array_push($res["data"]["courses"],$course);
+            }
+        }
         $res["data"]["lessons"] = array("selected"=>[]);
         if(cmd::getView()){
             $res["options"] = cmd::getVueOptions('courses/options');
@@ -138,7 +146,7 @@ if(isset($_REQUEST["view"])){
         $id = Utils::sanitize($id);
         $flag = Utils::sanitize(@$_POST["alias"]);
         $course = Utils::sanitize(@$_POST["course"]);
-        $overview = Utils::sanitize(@$_POST["overview"]);
+        $overview = htmlspecialchars(@$_POST["overview"]);
         $res = [];
         $db = new Data;
         $db->Query("SELECT id FROM courses WHERE id = ? LIMIT 1",[$id]);

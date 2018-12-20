@@ -216,7 +216,7 @@ Vue.component('v-wysiwyg', {
         setTimeout(function () {
             $($this.$el).find('textarea').trumbowyg({
                 btns: [
-                    ['viewHTML'],['kotex'],
+                    ['viewHTML'],['kotex','equations'],
                     ['formatting'],
                     ['strong', 'em', 'del'],
                     ['superscript', 'subscript'],
@@ -233,18 +233,21 @@ Vue.component('v-wysiwyg', {
             }).on('tbwchange', function(obj){
                 var $val = $(obj.currentTarget).val();
                 $this.$emit('wysiwygChange', $val)
+                // console.log($val);
+                
             })
         }, 1000);
     },
     methods:{
         loadPlugins: function(){
             var scripts = [
-                'https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js',
+                './assets/wysiwyg/katex/katex.min.js',
                 './assets/wysiwyg/plugins/equation/trumbowyg.equation.js',
                 './assets/wysiwyg/plugins/base64/trumbowyg.base64.js',
             ];
             var styles = [
-                'https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css',
+                './assets/wysiwyg/katex/katex.min.css',
+                './assets/wysiwyg/plugins/equation/ui/sass/trumbowyg.equation.css',
                 './assets/wysiwyg/ui/trumbowyg.min.css',
             ]
 

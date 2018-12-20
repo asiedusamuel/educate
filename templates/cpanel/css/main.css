@@ -63,7 +63,9 @@ body.show-preloader .preloader {
     content: "";
     background-size: 25px;
 }
-
+.trumbowyg-fixed-top{
+    top: 0 !important;
+}
 /* Error 404 Style */
 .container-404{
     margin: 0 auto;

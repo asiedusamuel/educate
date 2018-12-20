@@ -1,0 +1,89 @@
+.trumbowyg-math-panel {
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+    background: #ecf0f1;
+    border-top: 1px solid #d7e0e2;
+    width: 100%;
+    padding: 10px;
+    display: none;
+}
+
+.trumbowyg-math-panel.active {
+    display: block;
+}
+
+.trumbowyg-math-panel .render-pane {
+    border: 1px solid #d7e0e2;
+    height: 47%;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+.trumbowyg-math-panel .functions-category-pane {
+    border: 1px solid #d7e0e2;
+    height: 50%;
+    overflow: auto;
+}
+
+.trumbowyg-math-panel .functions-category {
+    background: #ffffff;
+}
+
+.trumbowyg-math-panel .functions-category .fnBtn:hover {
+    
+    border: thin solid rgb(17, 160, 216);
+}
+.trumbowyg-math-panel .functions-category .fnBtn {
+    cursor: pointer;
+    display: inline-block;
+    min-height: 1em;
+    min-width: 100px;
+    outline: 0;
+    vertical-align: baseline;
+    border: thin solid #e0e1e2;
+    color: rgb(17, 160, 216);
+    background: #ffffff;
+    margin-left: 5px;
+    margin-bottom: 4px;
+    padding: 5px 10px;
+    text-transform: none;
+    text-shadow: none;
+    font-weight: 700;
+    line-height: 1em;
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+    border-radius: .28571429rem;
+    -webkit-box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    will-change: '';
+    -webkit-tap-highlight-color: transparent;
+}
+
+.trumbowyg-math-panel .functions-category h5 em{
+    color: #b6babc;
+    font-size: 11px;
+}
+.trumbowyg-math-panel .functions-category h5 {
+    background: #ecf0f1;
+    font-weight: 600;
+    text-transform: capitalize;
+    border-bottom: 1px solid #d7e0e2;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.trumbowyg-editor span.katex {
+    cursor: pointer;
+    pointer-events: painted
+}
+
+.trumbowyg-editor span.katex:hover {
+    background: #d7f5fc;
+}
