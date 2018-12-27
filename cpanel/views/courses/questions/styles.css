@@ -1,0 +1,40 @@
+.small-editor {
+    border: 1px solid #d7e0e2;
+    width: 100%;
+    border-radius: 3px;
+}
+.small-editor .editor-field{
+    padding: 10px;
+    cursor: text;
+}
+.small-editor .editor-toolbar{
+    border-bottom: 1px solid #d7e0e2;
+    background: #d7e0e2;
+}
+.small-editor .editor-toolbar a{
+    border-right: 1px solid #cbcfcf;
+    display: inline-block;
+    padding: 5px;
+    cursor: pointer;
+}
+.trumbowyg-box{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.editor-modal .content{
+    padding: 0 !important;
+}
+.editor-toolbar .ui.checkbox label{
+    margin-bottom: 0 !important;
+}
+.questions-list a.question .mq-math-mode{
+    cursor: pointer !important;
+}
+.question-editor, 
+.questions-list{
+    display: none;
+}
+.questions-list.active,
+.question-editor.active{
+    display: block;
+}

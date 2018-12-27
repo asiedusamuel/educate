@@ -66,6 +66,9 @@ body.show-preloader .preloader {
 .trumbowyg-fixed-top{
     top: 0 !important;
 }
+.trumbowyg-modal-title{
+margin-bottom: 0 !important;
+}
 /* Error 404 Style */
 .container-404{
     margin: 0 auto;
@@ -109,6 +112,8 @@ body.show-preloader .preloader {
     margin-bottom: 0;
     padding: 0;
     list-style: none;
+    width: 100%;
+    padding-right: 50px;
 }
 
 .toolbar li {

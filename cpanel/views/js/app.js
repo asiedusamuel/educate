@@ -103,6 +103,7 @@ $(document).ready(function () {
                                     $this.$root.$options.components[$compName] = {};
                                     $this.$root.$options.components[$compName].template = '<div class="stage">' + res.view + '</div>';
                                     if (res.options) {
+                                        $this.$root.$options.components[$compName].style = (res.style?$.base64.decode(res.style):'');
                                         var $options = eval('(' + $.base64.decode(res.options) + ')');
                                         for (const key in $options) {
                                             if ($options.hasOwnProperty(key)) {
@@ -115,6 +116,7 @@ $(document).ready(function () {
                                 $this.pageTitle = (res.title ? res.title : 'Dashboard');
                                 $this.data = res.data;
                                 $this.$root.$options.components[$compName].data = function () {
+                                    $('#component-styles').html($this.$root.$options.components[$compName].style);                                    
                                     return { data: $this.data }
                                 };
                                 $this.currentPage = $compName;

@@ -43,7 +43,7 @@ if(isset($_REQUEST["view"])){
             $data = $db->Results();
             $i = 0;
             foreach($data as $course){
-                $course["overview"] = html_entity_decode($course["overview"]);
+                $course["overview"] = Utils::decode($course["overview"]);
                 array_push($res["data"]["courses"],$course);
             }
         }
@@ -63,12 +63,22 @@ if(isset($_REQUEST["view"])){
         $dbl->Query("SELECT id FROM lessons WHERE id=? LIMIT 1",[$lessonID]);
         if($dbl->Count() == 0) $res["data"]["error"] =true;
         $db = new Data;
+        $res["data"]["questions"] = [];
+        $res["data"]["addNew"] = true;
         $db->Query("SELECT id, question, options FROM questions WHERE lessonID=?",[$lessonID]);
-        $res["data"]["questions"] = $db->Results();
+        if($db->Count()>0){
+            $data = $db->Results();
+            foreach($data as $key => $question){
+                $question["question"] = json_decode($question["question"]);
+                $res["data"]["questions"][$key] = $question;;
+            }
+        }
+        $res["data"]["option"] = ["answers"=>[], "question"=>""];
         
         if(cmd::getView()){
             $res["options"] = cmd::getVueOptions('courses/questions.options');
             $res['view'] = $view->Render();
+            $res["style"] = cmd::getStyleSheet('courses/questions/styles');
         }    
         $db->Query("SELECT c.id as cid, c.course as title,l.lesson, l.id as lid FROM lessons l LEFT JOIN courses c ON c.id=l.course WHERE l.id=? LIMIT 1",[$lessonID]);
         if($db->Count() == 1){
@@ -143,10 +153,12 @@ if(isset($_REQUEST["view"])){
 
     // This route saves course details to the database
     $route->add('/course/save/{n:id}/', ["protected"=>true, "content-type"=>'application/JSON', "controllers"=>["cmd"]], function($id){
+        $pattern = '/<div (.* data-katex="(.*?)".*)>(.*?)<\/div>/s';
         $id = Utils::sanitize($id);
         $flag = Utils::sanitize(@$_POST["alias"]);
         $course = Utils::sanitize(@$_POST["course"]);
-        $overview = htmlspecialchars(@$_POST["overview"]);
+        $overview = @$_POST["overview"];
+        $overview = Utils::encode($overview); 
         $res = [];
         $db = new Data;
         $db->Query("SELECT id FROM courses WHERE id = ? LIMIT 1",[$id]);
@@ -207,6 +219,56 @@ if(isset($_REQUEST["view"])){
                 $res["id"] = $db->Results();
                 
             }       
+        }
+        return json_encode($res);
+    });
+
+    // This route saves question details to the database
+    $route->add('/course/lesson/save-question/{n:id}/', ["protected"=>true, "content-type"=>'application/JSON'], function($id){
+        $id = Utils::sanitize($id);
+        $course = Utils::sanitize(@$_POST["cid"]);
+        $lesson = Utils::sanitize(@$_POST["lid"]);
+        $question = json_encode(@$_POST["question"]);
+        $options = json_encode(@$_POST["options"]);
+        $res = [];
+        $db = new Data;
+        $db->Query("SELECT id FROM questions WHERE id = ? AND courseID=? AND lessonID=? LIMIT 1",[$id,$course,$lesson]);
+        if($db->Count() == 1){
+            // Update question table
+            // Check if question title has already been added.
+            $db->Query("SELECT id FROM questions WHERE id != ? AND question=? AND courseID=? AND lessonID=? LIMIT 1",[$id,$question,$course,$lesson]);
+            if($db->Count() == 1){
+                $res["error"] = "Lesson title already exist.";
+            }else{
+                $db->Query("UPDATE questions SET question=?, options=? WHERE id=?",[$question,$options,$id]);
+                $res["succes"] = true;
+            }
+        }else{
+            // Insert new question to lesson
+            // Check if questio has already been added.
+            $db->Query("SELECT id FROM questions WHERE courseID=? AND lessonID=? AND question=? LIMIT 1",[$course,$lesson,$question]);
+            if($db->Count() == 1){
+                $res["error"] = "Question already exist.";
+            }else{
+                $db->Query("INSERT INTO questions (courseID, lessonID, question, options) VALUES (?,?,?,?)", [$course, $lesson, $question,$options]);
+                $res["succes"] = true;
+                $res["id"] = $db->Results();
+                
+            }       
+        }
+        return json_encode($res);
+    });
+
+    // This route deletes course from the database
+    $route->add('/course/lesson/delete-question/{n:id}/', ["protected"=>true, "content-type"=>'application/JSON'], function($id=null){
+        $id = Utils::sanitize($id);
+        $res = [];
+        if($id){
+            $db = new Data;
+            $db->Query("DELETE FROM questions WHERE id=? LIMIT 1",[$id]);
+            $res["success"] = true;
+        }else{
+            $res["error"] = "An error occured. Could not delete from server.";
         }
         return json_encode($res);
     });

@@ -64,7 +64,7 @@ export default {
                                 }
                             },
                             error: function () {
-                                $el.hide();
+                                $el.show();
                             }
                         });
                     } else {

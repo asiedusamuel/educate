@@ -116,6 +116,7 @@ var app = {
             '   <button class="ui cancel button red">Close</button>' +
             '</div>' +
             '</div>');
+            if(typeof option.content == 'object') dialog.find('.content .row').html('').append(option.content)
         return dialog.clone();
     }
 }

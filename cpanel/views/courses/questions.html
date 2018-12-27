@@ -23,7 +23,7 @@
             <span v-html="data.questions.length + ' Questions'"></span>
         </div>
         <div class="m-2">
-            <button class="ui button primary fluid">Add New Question</button>
+            <button v-if="data.addNew" @click="addNewQuestion" class="ui button primary fluid">Add New Question</button>
         </div>
 
     </div>
@@ -33,55 +33,65 @@
         </div>
         <div class="ui bottom attached active tab segment scroll-area p-0" data-tab="questions">
             <div class="row m-0">
-                <div class="col-lg-5 p-0">
+                <div class="col-lg-12 p-0 questions-list active">
                     <v-questions></v-questions>
                 </div>
-                <div class="col-lg-7 p-0">
-                    <h6 class="p-2 bg-black white">Question Editor</h6>
-                    <form class="ui form p-2 question">
+                <div class="col-lg-12 p-0 question-editor">
+                    <h6 class="p-2 bg-black white"><button @click="returnToList" class="ui button inverted icon mini"><i class="icon arrow left"></i></button> Question Editor</h6>
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <form class="ui form p-2 question" @submit.prevent="saveQuestion">
                         <input type="hidden" name="id" />
                         <div class="field">
                             <label>Question</label>
                             <div class="ui input">
-                                <v-summernote name="question"></v-summernote>
+                                <vSmallEditor :content="data.option.question" name="question"></vSmallEditor>
                             </div>
                         </div>
+                        <div class="field answers-container">
+                            <div class="master mb-2" v-for="(option, index) in data.option.answers" :key="index">
+                                <vSmallEditor type="answers" :answer="data.option.answer" name="options[answers][]" :index="index" :content="option"></vSmallEditor>
+                            </div>                            
+                        </div>
+                        <button class="ui button mini icon mb-3" @click="addOption" type="button"><i class="icon plus"></i> Add More Option</button>
                         <div class="field">
                             <label>How do you want answers to be displayed?</label>
                             <div class="ui input">
                                 <select name="options[type]" class="ui dropdown fluid">
-                                    <option value="text-list">Text List Style</option>
-                                    <option value="image-list">Image List Style</option>
-                                    <option value="single-line-text">Single Line Text</option>
+                                    <option value="list-style">List Style</option>
+                                    <option value="inline-style">Inline Style</option>
                                 </select>
                             </div>
                         </div>
-                        <button class="ui button mini icon mb-3"><i class="icon plus"></i> Add More Option</button>
-                        <div class="field answers-container">
-                            
-                        </div>
                         <div class="field">
-                            <label>Does question requires multiple answers?</label>
-                            <div class="ui input">
-                                <label>No</label>
-                                <div class="ml-3 ui checkbox toggle">
-                                    <input name="options[multiple]" value="0" type="hidden"/>
-                                    <input name="options[multiple]" value="1" type="checkbox"/>
-                                    <label>Yes</label>
-                                </div>
-                            </div>
+                            <input name="options[multiple]" class="multiple" value="0" type="hidden" />                            
                         </div>
                         <div class="field">
                             <button class="ui button primary">Save Question</button>
+                            <button type="button" @click="returnToList" class="ui button red">Cancel</button>
                         </div>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </form>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
+        </div>
+    </div>
+    <div class="ui modal editor-modal">
+        <div class="content">
+            <form class="editor-modal-form">
+                <v-wysiwyg @wysiwygChange="" name="editor"></v-wysiwyg>
+            </form>            
+        </div>
+        <div class="actions">
+            <button class="ui approve button primary">Apply</button>
+            <button class="ui cancel button red">Close</button>
         </div>
     </div>
 </div>

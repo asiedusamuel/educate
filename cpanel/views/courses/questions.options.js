@@ -4,67 +4,116 @@ export default {
             var dom = $(this.$el);
             var $this = this;
             dom.find('.stage-content table.paginated').paginator('repaginate');
-            $this.setAnserStyle('text-list')
             dom.find('[data-content]').popup();
             dom.find('.ui.checkbox').checkbox();
             dom.find('.ui.dropdown').dropdown({
-                onChange: function(val){
-                    $this.setAnserStyle(val, {})
+                onChange: function (val) {
+
                 }
             });
         }, 100);
+        for (const key in this.data.questions) {
+            if (this.data.questions.hasOwnProperty(key)) {
+                const element = this.data.questions[key];
+                this.data.questions[key].options = JSON.parse(element.options);
+            }
+        }
     },
     methods: {
-        setAnserStyle: function($style, $data){
-            var dom = $(this.$el);
-            if(!$data) $data = {};
-            var $container = dom.find('.stage-content .answers-container');
-            $container.html('');
-            switch ($style) {
-                case 'text-list':
-                    var $master = $(`<div class="master">
-                                        <label class="d-inline">Answer #<span class="num">1</span></label>
-                                        <div class="ml-3 ui checkbox ">
-                                            <input class="correct" name="options[answer]" value="0" type="checkbox"/>
-                                            <label>Is answer</label>
-                                        </div>
-                                        <a href="javascript:;" class="red delete">Delete</a>
-                                        <div class="ui input mb-2">
-                                            <input class="answer" type="text" placeholder="Enter Answer" name="options[answers][]" />
-                                        </div>
-                                    </div>`);
-                    $master.find('a.delete').click(function(){
-                        $(this).parent().remove();
-                    });
-                    if($data.hasOwnProperty('answers')){
-                        $data.answers.forEach(function(val, i){
-                            var $clone = $master.clone();
-                            $clone.find('a.delete').click(function () {
-                                $(this).parent().remove();
-                            });
-                            if(i==0){
-                                $clone.find('a.delete').hide();
-                            }else{
-                                $clone.toggleClass('master slave');
-                            }
-                            $clone.find('.answer').val(val)
-                            $clone.find('.num').html(i+1)
-                            $container.append($clone)
-                            $clone.find('.correct').val(i)    
-                            if(i==$data.answer){
-                                $clone.find('.correct').prop('checked', true);
-                            }
-                        });
-                    }else{
-                        $master.find('a.delete').hide();
-                        $container.html($master)
-                    }
-                    
-                    break;
-            
-                default:
-                    break;
+        findClickable: function ($element, $findClass) {
+            if (!$element.hasClass($findClass)) {
+                return this.findClickable($element.parent(), $findClass);
             }
+            return $element;
+        },
+        addOption: function () {
+            var $id = this.data.option.answers.length;
+            Vue.set(this.data.option.answers, $id, 'Click on <i class="icon pencil"></i> button to edit content.');
+        },
+        saveQuestion: function (form) {
+            var $form = $(form.target);
+            var $key = $form.attr('data-key');
+            var $formData = $form.serializeJSON();
+            if ($formData.question == "") {
+                app.message.toast('error', "Question Form Alert", 'Enter a question.')
+                return;
+            }
+            if (!$formData.options.answers) {
+                app.message.toast('error', "Question Form Alert", 'No options added to this question.')
+                return;
+            }
+            if (!$formData.options.answer) {
+                app.message.toast('error', "Question Form Alert", 'You need to select one or more option as an answer')
+                return;
+            }
+            $form.addClass('loading');
+            $formData.cid = this.data.course.cid;
+            $formData.lid = this.data.course.lid;
+            if (!$formData.id) $formData.id = 0;
+            $.ajax({
+                method: "POST",
+                url: AJAX_URL + 'course/lesson/save-question/' + $formData.id + '/',
+                dataType: 'json',
+                data: $formData,
+                success: function (res) {
+                    $form.removeClass('loading')
+                    if (!res.error) {
+                        app.message.toast("success", "Course Processing", "Detailed saved successfully.");
+                        $this.data.questions[$key].question = $formData.question;
+                        if (res.id) {
+                            $this.data.questions[$key].id = res.id;
+                            $form.find('input[name=id]').val(res.id);
+                        }
+                    } else {
+                        app.message.toast("error", "Course Processing", res.error)
+                    }
+                },
+                error: function (res) {
+                    $form.removeClass('loading')
+                    app.message.toast("error", "Course Processing", "Please check your internet connection and try again later")
+                }
+            });
+        },
+        checkIfMultiple: function () {
+            var $checkboxes = $(this.$el).find('.small-editor .ui.checkbox input:checked');
+            if ($checkboxes.length > 1) {
+                $(this.$parent.$el).find('input.multiple').val(1)
+            } else {
+                $(this.$parent.$el).find('input.multiple').val(0)
+            }
+        },
+        returnToList: function () {
+            var dom = $(this.$el);
+            this.data.addNew = true;
+            dom.find('.question-editor, .questions-list').toggleClass('active');
+            this.data.option = Object.assign({}, this.data.option, {});
+        },
+        editQuestion: function (el) {
+            var dom = $(this.$el);
+            var $link = this.findClickable($(el.target), 'clickable')
+            var $key = $link.attr('data-key');
+            var $id = this.data.questions[$key].id;
+            var $this = this;
+            dom.find('.ui.form.question').attr('data-key', $key);
+            this.data.option = Object.assign({}, this.data.option, {
+                answer: this.data.questions[$key].options.answer,
+                answers: this.data.questions[$key].options.answers,
+                question: this.data.questions[$key].question
+            });
+            dom.find('.ui.form.question input[name=id]').val($id);
+            setTimeout(() => { $this.checkIfMultiple(); }, 100);
+
+            dom.find('.question-editor, .questions-list').toggleClass('active');
+            this.data.addNew = false;
+        },
+        addNewQuestion: function () {
+            var dom = $(this.$el);
+            var $id = this.data.questions.length;
+            var $cid = this.data.course.cid;
+            var $lid = this.data.course.lid;
+            var $this = this;
+            Vue.set(this.data.questions, $id, { id: '', courseID: $cid, lessonID: $lid, question: 'New Question (Unsaved)', options: { answers: ['Click on <i class="icon pencil"></i> button to edit content.'], answer: [], type: 'list-style', multiple: 0 } });
+            setTimeout(() => { dom.find('.page-number:last').click(); }, 500);
         }
     },
     watch: {
@@ -83,6 +132,60 @@ export default {
         }
     },
     components: {
+        'vSmallEditor': {
+            props: ['index', 'type', 'content', 'answer', 'name'],
+            methods: {
+                editWithWYSIWYG: function ($el) {
+                    var dom = $(this.$parent.$el);
+                    var $editor = $(this.$el);
+                    var $this = this;
+                    var $key = dom.find('.ui.form.question').attr('data-key');
+                    var $modal = $('.ui.modal').modal({
+                        closable: false,
+                        onApprove: function (e, a) {
+                            var $form = $modal.find('form').serializeJSON();
+                            $editor.find('.value').val($form.editor);
+                            $editor.find('.editor-field').html($form.editor);
+                            $this.$parent.data.questions[$key].question = $form.editor;
+                        }
+                    }).modal('show')
+                    $modal.find('form .trumbowyg-textarea').trumbowyg('html', $editor.find('.editor-field').html());
+                    setTimeout(() => {
+                        $modal.find('form .trumbowyg-editor').focus();
+                    }, 100);
+
+                },
+                removeWYSIWYG: function ($el) {
+                    $el = $($el.target)
+                    if ($el.hasClass('icon')) $el = $el.parent();
+                    var $key = $el.attr('data-id');
+                    this.$parent.data.option.answers = this.$parent.data.option.answers.filter(function (el, i) { return i != $key; })
+                },
+                checkIfMultiple: function () {
+                    this.$parent.checkIfMultiple();
+                },
+                checkAnswer: function ($key, $answers) {
+                    return ($.inArray($key.toString(), $answers) != -1);
+                }
+            },
+            template: (`<div class="small-editor">
+                            <input type="hidden" class="value" :value="content" :name="name" />
+                            <div class="editor-toolbar">
+                                <a v-if="type=='answers'">Option #{{index+1}}</a>
+                                <a @click="editWithWYSIWYG" title="Open in editor"><i class="icon pencil"></i></a>
+                                <a v-if="type=='answers'" :data-id="index" @click="removeWYSIWYG" title="Remove Option"><i style="color:#ef6441;" class="icon trash"></i></a>
+                                <a v-if="type=='answers'" :data-id="index" title="Only check if this option is an answer">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" @change="checkIfMultiple" :checked="checkAnswer(index, answer)" :value="index" name="options[answer][]" />
+                                        <label>Is Answer</label>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="editor-field" v-html="content">
+                                
+                            </div>
+                        </div>`)
+        },
         'v-questions': {
             methods: {
                 // This function make it possible to select all checkbox in the lessons rows when the [select all] checkbox is selected.
@@ -101,17 +204,47 @@ export default {
                         $(this.$el).find('.bulk-actions').addClass('d-none')
                     }
                 },
-                editQuestion: function(el){
-                    var dom = $(this.$parent.$el);
-                    var $link = $(el.target);
-                    var $key = $link.data('key');
-                    var $id = this.$parent.data.questions[$key].id;
-                    var $question = this.$parent.data.questions[$key].question;
-                    dom.find('.ui.form.question #summernote').summernote('code', $question);
-                    dom.find('.ui.form.question input[name=id]').val($id);
-                    var $options = JSON.parse(this.$parent.data.questions[$key].options);
-                    this.$parent.setAnserStyle($options.type, $options);                   
-                    
+                deleteQuestion: function (e) {
+                    var $el = this.$parent.findClickable($(e.target), 'clickable');
+                    var $key = $el.attr('data-key');
+                    var _id = this.$parent.data.questions[$key].id
+                    var $question = $el.parent().parent().find('a.question').html();
+                    var $this = this;
+                    var dialog = app.dialog({
+                        size: "small",
+                        approveText: "Delete",
+                        content: "<div class='col-lg-12 m-6' style='text-align:center;'><h3><i class='icon info circle big'></i><br/><br/>Are you sure you want to delete this question?</h3><p>" + $question + "</p></div>",
+                    });
+                    // create a modal with semantic-ui
+                    dialog.modal({
+                        blurring: true,
+                        onApprove: function () {
+                            $el.hide();
+                            if (_id) {
+                                $.ajax({
+                                    method: "POST",
+                                    url: AJAX_URL + 'course/lesson/delete-question/' + _id + '/',
+                                    dataType: 'json',
+                                    success: function (res) {
+                                        if (!res.error) {
+                                            $this.$parent.data.questions = $this.$parent.data.questions.filter(function (el, i) { return i != $key });
+                                            app.message.toast("success", "Delete Alert", "Question deleted successfully.");
+                                        } else {
+                                            app.message.toast("error", "Delete Alert", res.error);
+                                            $el.show();
+                                        }
+                                    },
+                                    error: function () {
+                                        $el.show();
+                                    }
+                                });
+                            } else {
+                                $this.$parent.data.questions = $this.$parent.data.questions.filter(function (el, i) { return i != $key });
+                            }
+                        }
+                    }).modal('show');
+                    dialog.find('.ui.approve').toggleClass('primary red')
+                    dialog.find('.ui.cancel').toggleClass('red')
                 }
             },
             template: (`<div clas="lessons-table">
@@ -149,9 +282,9 @@ export default {
                                         </div>
                                     </td>
                                     <td>{{item.id}}</td>
-                                    <td><a @click="editQuestion" :data-key="key" href="javascript:;">{{item.question}}</a></td>
+                                    <td><a @click="$parent.editQuestion" class="clickable question" :data-key="key" href="javascript:;" v-html="item.question"></a></td>
                                     <td>
-                                    <button :data-key="key" class="ui button icon circular mini"><i class="icon trash"></i></button>
+                                    <button :data-key="key" @click="deleteQuestion" class="ui clickable button icon circular mini"><i class="icon trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>

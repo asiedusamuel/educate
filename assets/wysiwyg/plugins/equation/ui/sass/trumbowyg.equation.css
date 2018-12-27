@@ -1,12 +1,14 @@
 .trumbowyg-math-panel {
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
-    z-index: 99;
+    z-index: 99; */
     background: #ecf0f1;
     border-top: 1px solid #d7e0e2;
     width: 100%;
     padding: 10px;
-    display: none;
+    margin-bottom: 10px;
+    /* display: none; */
+    overflow: hidden !important;
 }
 
 .trumbowyg-math-panel.active {
@@ -20,21 +22,112 @@
     margin-bottom: 10px;
 }
 
+.trumbowyg-math-panel .render-pane #math-field{
+    display: block;
+    height: 100%;
+    text-align: center;
+    background: #ffffff;
+    border: none;
+    font-size: 1.5em;
+    padding-top: 10px;
+}
+
 .trumbowyg-math-panel .functions-category-pane {
     border: 1px solid #d7e0e2;
     height: 50%;
+    overflow: hidden;
+}
+
+.trumbowyg-math-panel .functions-category-pane .tab-content {
+    height: 80%;
     overflow: auto;
+    padding-top: 10px;
+    display: none;
+}
+.trumbowyg-math-panel .functions-category-pane .tab-content.active {
+ display: block;
+}
+
+
+.trumbowyg-math-panel .functions-tab {
+    margin: 0 18px 0 0;
+    padding: 0 18px 0 18px;
+    list-style: none;
+    border-bottom: 1px solid #d7e0e2;
+    overflow: hidden;
+    height: 27px;
+    white-space: nowrap;
+}
+
+.trumbowyg-math-panel .functions-tab li:hover {
+    background-color: #dde9ec
+}
+
+.trumbowyg-math-panel .functions-tab li.active {
+    background-color: #ffffff
+}
+
+.trumbowyg-math-panel .functions-tab li.active:hover {
+    background-color: #ffffff
+}
+
+.trumbowyg-math-panel .functions-tab li {
+    display: inline-block;
+    padding: 2px 8px 3px;
+    border-right: 1px solid #d7e0e2;
+    font-weight: 600;
+    text-transform: capitalize;
+    cursor: pointer;
+    color: #3c4041;
+}
+
+.trumbowyg-math-panel .functions-tab li:first-child {
+    position: absolute;
+    left: 0;
+    border: none;
+}
+
+.trumbowyg-math-panel .functions-tab li:first-child:hover, .trumbowyg-math-panel .functions-tab li:last-child:hover {
+    background: none !important;
+}
+
+.trumbowyg-math-panel .functions-tab li:last-child {
+    position: absolute;
+    right: 0;
+    border: none;
+}
+
+.trumbowyg-math-panel .functions-tab li:first-child::before {
+    content: " ";
+    background-color: #d7e0e2;
+    padding: 3px 10px 5px 10px;
+    margin-left: 2px;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-position: center;
+    background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0OTIgNDkyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0OTIgNDkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTE5OC42MDgsMjQ2LjEwNEwzODIuNjY0LDYyLjA0YzUuMDY4LTUuMDU2LDcuODU2LTExLjgxNiw3Ljg1Ni0xOS4wMjRjMC03LjIxMi0yLjc4OC0xMy45NjgtNy44NTYtMTkuMDMybC0xNi4xMjgtMTYuMTIgICAgQzM2MS40NzYsMi43OTIsMzU0LjcxMiwwLDM0Ny41MDQsMHMtMTMuOTY0LDIuNzkyLTE5LjAyOCw3Ljg2NEwxMDkuMzI4LDIyNy4wMDhjLTUuMDg0LDUuMDgtNy44NjgsMTEuODY4LTcuODQ4LDE5LjA4NCAgICBjLTAuMDIsNy4yNDgsMi43NiwxNC4wMjgsNy44NDgsMTkuMTEybDIxOC45NDQsMjE4LjkzMmM1LjA2NCw1LjA3MiwxMS44Miw3Ljg2NCwxOS4wMzIsNy44NjRjNy4yMDgsMCwxMy45NjQtMi43OTIsMTkuMDMyLTcuODY0ICAgIGwxNi4xMjQtMTYuMTJjMTAuNDkyLTEwLjQ5MiwxMC40OTItMjcuNTcyLDAtMzguMDZMMTk4LjYwOCwyNDYuMTA0eiIgZmlsbD0iIzZlNmU2ZSIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=)
+}
+
+.trumbowyg-math-panel .functions-tab li:last-child::before {
+    content: " ";
+    background-color: #d7e0e2;
+    padding: 3px 10px 5px 10px;
+    margin-right: 2px;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-position: center;
+    background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQ1MS44NDYgNDUxLjg0NyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDUxLjg0NiA0NTEuODQ3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTM0NS40NDEsMjQ4LjI5MkwxNTEuMTU0LDQ0Mi41NzNjLTEyLjM1OSwxMi4zNjUtMzIuMzk3LDEyLjM2NS00NC43NSwwYy0xMi4zNTQtMTIuMzU0LTEyLjM1NC0zMi4zOTEsMC00NC43NDQgICBMMjc4LjMxOCwyMjUuOTJMMTA2LjQwOSw1NC4wMTdjLTEyLjM1NC0xMi4zNTktMTIuMzU0LTMyLjM5NCwwLTQ0Ljc0OGMxMi4zNTQtMTIuMzU5LDMyLjM5MS0xMi4zNTksNDQuNzUsMGwxOTQuMjg3LDE5NC4yODQgICBjNi4xNzcsNi4xOCw5LjI2MiwxNC4yNzEsOS4yNjIsMjIuMzY2QzM1NC43MDgsMjM0LjAxOCwzNTEuNjE3LDI0Mi4xMTUsMzQ1LjQ0MSwyNDguMjkyeiIgZmlsbD0iIzUyNTI1MiIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=)
 }
 
 .trumbowyg-math-panel .functions-category {
     background: #ffffff;
 }
 
-.trumbowyg-math-panel .functions-category .fnBtn:hover {
-    
+.trumbowyg-math-panel .fnBtn:hover {
     border: thin solid rgb(17, 160, 216);
 }
-.trumbowyg-math-panel .functions-category .fnBtn {
+
+.trumbowyg-math-panel .fnBtn {
     cursor: pointer;
     display: inline-block;
     min-height: 1em;
@@ -42,7 +135,7 @@
     outline: 0;
     vertical-align: baseline;
     border: thin solid #e0e1e2;
-    color: rgb(17, 160, 216);
+    color: rgb(14, 14, 14);
     background: #ffffff;
     margin-left: 5px;
     margin-bottom: 4px;
@@ -50,7 +143,6 @@
     text-transform: none;
     text-shadow: none;
     font-weight: 700;
-    line-height: 1em;
     font-style: normal;
     text-align: center;
     text-decoration: none;
@@ -65,10 +157,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.trumbowyg-math-panel .functions-category h5 em{
+.trumbowyg-math-panel .functions-category h5 em {
     color: #b6babc;
     font-size: 11px;
 }
+
 .trumbowyg-math-panel .functions-category h5 {
     background: #ecf0f1;
     font-weight: 600;
@@ -80,10 +173,8 @@
 }
 
 .trumbowyg-editor span.katex {
-    cursor: pointer;
-    pointer-events: painted
+    font-size: 28px;
 }
-
-.trumbowyg-editor span.katex:hover {
-    background: #d7f5fc;
+.trumbowyg-editor span.katex .vlist-r {
+    display: block;
 }

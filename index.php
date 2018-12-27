@@ -69,6 +69,6 @@ if(!AJAX){
 }else{
     $content = Controller::parseHTML('<app:view />');
 }
+
 echo $content;
-/* Load Required CSS and JS */
-// namespace
+

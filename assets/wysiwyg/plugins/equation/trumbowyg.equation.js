@@ -9,236 +9,125 @@
         // Add some translations
         langs: {
             en: {
-                equation: 'Equation'
+                mapsto: 'Maps To',
+                infty: 'Infinity',
+                '\\\\':'Space'
             }
         },
         // Add our plugin to Trumbowyg registred plugins
         plugins: {
             equations: {
                 elements: {
-                    mathsPanel: $('<div class="trumbowyg-math-panel"></div>'),
-                    mathsRenPanel: $('<div class="render-pane">Editor</div>'),
-                    fnCatagory: $('<div class="functions-category"></div>'),
-                    fnCatPanel: $('<div class="functions-category-pane"></div>'),
-                    fnBtn: $('<div class="fnBtn"></div>'),
-                    functions:{
-                        accents:[
-                            {
-                                syntax:(`a'`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\tilde{a}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\mathring{g}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`a''`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\widetilde{ac}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overgroup{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\undergroup{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`a^{\\prime}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\utilde{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\acute{a}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\vec{F}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\Overrightarrow{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overleftarrow{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overrightarrow{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\underrightarrow{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\underleftarrow{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\bar{y}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\breve{a}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\check{a}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overleftharpoon{ac}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overrightharpoon{ac}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\dot{a}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\ddot{a}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overleftrightarrow{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\underleftrightarrow{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overbrace{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\underbrace{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\grave{a}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overline{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\underline{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\hat{\\theta}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\overlinesegment{AB}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\widehat{ac}`),
-                                regex: '/(*)\'/g'
-                            },
-                            {
-                                syntax:(`\\widecheck{ac}`),
-                                regex: '/(*)\'/g'
-                            },
-
+                    MQMathField: '',
+                    functions: {
+                        accents: ['a', "a''",'a^\\prime', '\\vec{F}', '\\overleftarrow{AB}',
+                            '\\overrightarrow{AB}', '\\bar{y}', '\\overline{AB}', '\\underline{AB}'
                         ],
-                        delimiters:[],
-                        environments:[],
-                        "letters-and-unicode":[],
-                        annotation:[],
-                        "line-break":[],
-                        "vertical-layout":[],
-                        "overlap-and-spacing":[],
+                        delimiters: ['\\mid', '\\parallel', '\\left\\{\\right\\}', '\\uparrow', '\\downarrow', '\\Uparrow', '\\Downarrow', '/', '\\angle', '\\lceil', '\\rceil', '\\lfloor', '\\rfloor'],
+                        'set-and/or-logic-notation': ['\\exists', '\\rightarrow', '\\leftarrow', '\\forall', '\\mapsto', '\\neg', '\\implies', '\\Rightarrow', '\\leftrightarrow', '\\iff', '\\Leftrightarrow', '\\top', '\\land', '\\bot', '\\lor', '\\emptyset'],
+                        "greek-letters": ['\\alpha', '\\beta', '\\gamma', '\\Gamma', '\\Delta', '\\delta', '\\epsilon', '\\varepsilon', '\\zeta', '\\eta', '\\Theta', '\\theta', '\\vartheta', '\\iota', '\\kappa', '\\varkappa', '\\Lambda', '\\lambda', '\\nu', '\\Xi', '\\xi', 'O', 'o', '\\pi', '\\Pi', '\\varpi', '\\phi', '\\Phi', '\\varphi', '\\mu', '\\rho', '\\varrho', '\\Sigma', '\\sigma', '\\varsigma', '\\tau', '\\Upsilon', '\\upsilon', '\\chi', '\\Psi', '\\psi', '\\Omega', '\\omega'],
+                        'trigonometric-functions': ['\\cos', '\\sin', '\\tan', '\\cot', '\\arcsin', '\\arccos', '\\arctan', '\\arccot', '\\sinh', '\\cosh', '\\tanh', '\\coth', '\\sec', '\\csc'],
+                        'relation-symbols': ['>', '<', '\\leq', '\\geq', '\\ll', '\\gg', '\\subset', '\\supset', '\\subseteq', '\\supseteq', '\\nsubseteq', '\\nsupseteq', '\\sqsubset', '\\sqsupset', '\\sqsubseteq', '\\sqsupseteq', '\\preceq', '\\succeq', '\\prec', '\\succ', '=', '\\doteq', '\\parallel', '\\asymp', '\\equiv', '\\vdash', '\\approx', '\\in', '\\smile', '\\cong', '\\simeq', '\\models', '\\sim', '\\perp', '\\propto', '\\neq', '\\sphericalangle', '\\nparallel', '\\bowtie', '\\dashv', '\\ni', '\\frown', '\\notin', '\\mid', '\\measuredangle'],
+                        'binary-operations': ['\\pm', '\\mp', '\\times', '\\div', '\\ast', '\\star', '\\dagger', '\\ddagger', '\\cap', '\\cup', '\\uplus', '\\sqcap', '\\sqcup', '\\vee', '\\wedge', '\\cdot', '\\diamond', '\\bigtriangleup', '\\bigtriangledown', '\\triangleleft', '\\triangleright', '\\bigcirc', '\\bullet', '\\wr', '\\oplus', '\\ominus', '\\otimes', '\\ominus', '\\oslash', '\\odot', '\\circ', '\\setminus', '\\amalg'],
+                        "other-symbols": ['\\partial', '\\hbar', '\\ell', '\\Re', '\\Im', '\\wp', '\\nabla', '\\infty'],
+                        "simple-equations": ['\\cos (2\\theta) = \\cos^2 \\theta - \\sin^2 \\theta','\\sum_{i=1}^{10} t_i', '\\lim_{_{x\\to\\infty}}\\text{expo}\\left(-x\\right)=0', 'x\\equiv a\\text{ (mod b)}', 'k_{n+1} = n^2 + k_n^2 - k_{n-1}','f(n) = n^5 + 4n^2 + 2 |_{n=17}','\\frac{n!}{k!(n-k)!} = \\binom{n}{k}','\\frac{\\frac{1}{x}+\\frac{1}{y}}{y-z}','\\sum_{_{i=1}}^{10}t_i','\\int_0^{\\infty}\\ \\mathrm{e^{-x}}\\ dx'],
+                        "fractions": ['\\frac{1}{x-y}','\\frac{1}{2}','^1/_2','1/2','\\left\\{\\frac{x^2}{y^3}\\right\\}'],
+                        "roots": ['\\sqrt{\\frac{a}{b}}','\\sqrt[n]{x}','\\sqrt[n]{1+x+x^2+x^3+\\dots+x^n}'],
+                        "overlap-and-spacing": ['\\\\'],
                     }
                 },
                 init: function (trumbowyg) {
                     var $this = this;
+                    var MQ = MathQuill.getInterface(2);
                     // Fill current Trumbowyg instance with my plugin default options  
                     trumbowyg.o.plugins.equations = $.extend(true,
                         defaultOptions,
                         trumbowyg.o.plugins.equations || {}
                     );
 
-                    var buildButtons = function($arr, $cat){ 
-                        
-                            $arr.forEach(function(el){
-                            var $btn = $this.elements.fnBtn.clone();
-                            var $btnText = katex.renderToString(el.syntax, {
-                                throwOnError: false
-                            });
-                            $btn.html($btnText)
-                            $cat.append($btn)
+                    var buildButtons = function ($arr, $tabName, $fnCatPanel) {
+                        var $tabContent = $('<div class="tab-content"/>');
+                        $arr.forEach(function (el) {
+                            var $btn = $('<button type="button" class="fnBtn"></button>');
+                            $tabContent.append($btn);
+                            var title = el.replace(/[^a-zA-Z0-9]/g, '');
+                            title = (trumbowyg.lang.hasOwnProperty(title) ? trumbowyg.lang[title] : title);
+                            var mathField = MQ.StaticMath($btn[0]);
+                            mathField.latex(el);
+                            $btn.attr('data-syntax', el)
+                            $btn.attr('title', title)
+                            $btn.click(function (e) {
+                                var $annotation = $(this).data('syntax');
+                                $this.elements.MQMathField.write($annotation);
+                                $this.elements.MQMathField.focus()
+                                e.preventDefault();
+                            })
                         });
-                         
-                                             
-                        
+                        $tabContent.attr('data-tab', $tabName)
+                        $tabContent.appendTo($fnCatPanel);
                     }
 
-                    var buildMathFunctions = function(){
+                    var buildMathFunctions = function ($fnCatPanel, $fnTab) {
+                        var $scrollLeft = $('<li class="scroller"/>');
+                        var $scrollRight = $scrollLeft.clone();
+                        var mouseEvent = ''
+                        
+                        $scrollLeft.mousedown(function () {
+                            mouseEvent = setInterval(() => {
+                                $fnTab.animate({
+                                    scrollLeft: "-=100px"
+                                }, "fast");
+                            }, 100);
+
+                        }).mouseup(function(){clearInterval(mouseEvent)});
+                        $scrollRight.mousedown(function () {
+                            mouseEvent = setInterval(() => {
+                                $fnTab.animate({
+                                    scrollLeft: "+=100px"
+                                }, "fast");
+                            }, 100);
+
+                        }).mouseup(function(){clearInterval(mouseEvent)});
+                        $fnCatPanel.append($fnTab)
+                        $fnTab.append($scrollLeft)
                         for (const key in $this.elements.functions) {
                             if ($this.elements.functions.hasOwnProperty(key)) {
                                 const mcategory = $this.elements.functions[key];
-                                var $cat = $this.elements.fnCatagory.clone();
-                                var $title = $('<h5 />')
-                                $title.html(key.replace(/-/g,' ')+ ' <em>('+mcategory.length+' functions)</em>')
-                                $cat.append($title)
-                                if(mcategory.length > 0){
-                                    $this.elements.fnCatPanel.append($cat)
-                                    buildButtons(mcategory, $cat)
+                                var $tab = $('<li/>');
+                                $tab.attr("data-tab", key).click(function () {
+                                    $(this).addClass('active').siblings().removeClass('active');
+                                    $fnCatPanel.find('.tab-content').removeClass('active').siblings('.tab-content[data-tab="' + key + '"]').addClass('active');
+                                }).html(key.replace(/-/g, ' ')).appendTo($fnTab)
+                                if (mcategory.length > 0) {
+                                    buildButtons(mcategory, key, $fnCatPanel)
                                 }
-                                
+
                             }
                         }
-                    }
-                    setTimeout(function () {
-                        var $box = trumbowyg.$box;
-                        var $editor = trumbowyg.$ed;
-                        var $btnPane = trumbowyg.$btnPane;
-
-                        var $boxHeight = $box.height() - $btnPane.height() + 'px';
-                        var $boxWidth = $box.width() + 'px';
-                        $this.elements.mathsPanel.css({height: $boxHeight })
-                        $box.append($this.elements.mathsPanel)
-                        $this.elements.mathsPanel.append($this.elements.mathsRenPanel)
-                        $this.elements.mathsPanel.append($this.elements.fnCatPanel)
-                        buildMathFunctions();
-                    }, 100);
-
-
-                    //$box.append()
-                    var openMathsPane = function () {
-                        $this.elements.mathsPanel.toggleClass('active')
+                        $fnTab.find('li:not(.scroller):first').addClass('active')
+                        $fnCatPanel.find('.tab-content:first').addClass('active')
+                        $fnTab.append($scrollRight)
                     }
 
-                    var convertToKoTex = function (v) {
-                        var $element = $('<span class="kotext-equation" />')
-                        var formatted = katex.renderToString(v.equation, {
-                            throwOnError: false
+                    var PanelModal = function () {
+                        var $panel = $('<div class="trumbowyg-math-panel"></div>');
+                        var $mathsRenPanel = $('<div class="render-pane"><span id="math-field"></span></div>');
+                        var $fnCatPanel = $('<div class="functions-category-pane"></div>');
+                        var $fnTab = $('<ul class="functions-tab"></div>');
+
+                        $panel.css({ height: '303px' });
+                        $mathsRenPanel.appendTo($panel)
+                        $panel.append($fnCatPanel);
+                        $this.elements.MQMathField = MQ.MathField($mathsRenPanel.find('span#math-field')[0], {
+                            spaceBehavesLikeTab: true, // configurable
+                            handlers: {
+                                edit: function () {
+                                    $mathsRenPanel.find('span#math-field').attr('data-latex', $this.elements.MQMathField.latex())
+                                }
+                            }
                         });
-                        var node = $(formatted)[0];
-                        trumbowyg.range.deleteContents();
-                        trumbowyg.range.insertNode(node);
-
-                        trumbowyg.$c.trigger("tbwchange");
+                        buildMathFunctions($fnCatPanel, $fnTab);
+                        return $panel;
                     }
 
                     function getSelectionText() {
@@ -251,37 +140,32 @@
                         return text;
                     }
 
-
-                    var triggerEquationInsert = function (obj) {
+                    var triggerEquationInsert = function () {
                         var selectedText = getSelectionText();
-                        var textarea = '<label>Equation Syntax</label><div class=" m-2"><textarea name="equation" class="form-control" placeholder="Enter Equation">' + selectedText + '</textarea></div>'
+                        var $modalContent = PanelModal();
+                        $this.elements.MQMathField.latex(selectedText)
+                        var $modal = trumbowyg.openModal('Insert Equation', $modalContent);
 
-                        var $modal = trumbowyg.openModal('Insert Equation', textarea, convertToKoTex);
                         $modal.on('tbwconfirm', function (e, b) {
-                            // Do what you want
-                            var $form = $modal.find('form').serializeJSON()
-                            convertToKoTex($form)
+                            var $rendered = '<span class=\'mq-math-mode\' style="font-family: Symbola, \'Times New Roman\', serif;">' + $this.elements.MQMathField.html() + '</span>'
+                            trumbowyg.range.deleteContents();
+                            trumbowyg.range.insertNode($($rendered)[0]);
+                            trumbowyg.execCmd('insertHTML', '')
                             trumbowyg.closeModal();
+
                         });
                         $modal.on('tbwcancel', function (e) {
                             trumbowyg.closeModal();
                         });
-                    }
-
-                    var ButtonDef = {
-                        title: 'Insert Equation',
-                        text: '<i style="font-size:0.8em" class="icon percent"></i>',
-                        key: 'K',
-                        hasIcon: false,
-                        fn: triggerEquationInsert
+                        $this.elements.MQMathField.focus()
                     }
 
                     var ButtonMathsPan = {
                         title: 'Insert Equation',
-                        text: '<i class="icon medium"></i>',
-                        key: 'Alt + M',
-                        hasIcon: false,
-                        fn: openMathsPane
+                        ico: 'mathml',
+                        key: 'M',
+                        hasIcon: true,
+                        fn: triggerEquationInsert
                     }
                     // If my plugin is a paste handler, register it
                     trumbowyg.pasteHandlers.push(function (pasteEvent, g) {
@@ -289,8 +173,7 @@
 
                     });
 
-                    // If my plugin is a button
-                    trumbowyg.addBtnDef('kotex', ButtonDef);
+                    // If plugin is a button
                     trumbowyg.addBtnDef('equations', ButtonMathsPan);
                 },
                 tagHandler: function (element, trumbowyg) {

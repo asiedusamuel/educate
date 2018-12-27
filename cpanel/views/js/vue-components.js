@@ -1,13 +1,14 @@
 Vue.component('nav-item', {
     props: ["nav"],
-    template: `<li v-bind:data-content="nav.title" data-variation="mini inverted" data-position="right center">
-    <a v-bind:href="\'./cpanel/#\'+ nav.link" v-bind:title="nav.title" v-bind:class="nav.class"></a>
+    template: `<li :data-content="nav.title" data-variation="mini inverted" data-position="right center">
+    <a :href="\'./cpanel/#\'+ nav.link" :title="nav.title" :class="nav.class"></a>
     </li>`
 });
 
 Vue.component('v-bubble-loader', {
     props: ["classes"],
-    template: `<div v-bind:class="'bubblingG ' + classes">
+    // language=HTML
+    template: `<div :class="'bubblingG ' + classes">
                     <span id="bubblingG_1">
                     </span>
                     <span id="bubblingG_2">
@@ -147,9 +148,9 @@ Vue.component('v-uploader', {
         }
     },
     template: `<div class="v-uploader">
-                    <button @click="triggerUpload" style="margin-bottom:12px;" v-bind:class="'ui button icon '+ classes">
+                    <button @click="triggerUpload" style="margin-bottom:12px;" :class="'ui button icon '+ classes">
                         <i class="icon upload"></i> Upload Video
-                        <input @change="startUpload" v-bind:data-allowed="allowed" v-bind:name="name" style="display:none;" type="file" />
+                        <input @change="startUpload" :data-allowed="allowed" :name="name" style="display:none;" type="file" />
                     </button>
                     <div class="progress-bars">
                         <div class="ui progress" data-percent="0" style="display:none">
@@ -165,7 +166,7 @@ Vue.component('v-uploader', {
 
 Vue.component('v-summernote', {
     props: ["name"],
-    template: '<textarea id="summernote" v-on:SNChange="onSNChange" v-bind:name="name"></textarea>',
+    template: '<textarea id="summernote" v-on:SNChange="onSNChange" :name="name"></textarea>',
     created: function (e) {
         this.loadPlugins();
         var $this = this;
@@ -241,13 +242,15 @@ Vue.component('v-wysiwyg', {
     methods:{
         loadPlugins: function(){
             var scripts = [
-                './assets/wysiwyg/katex/katex.min.js',
+                //'./assets/wysiwyg/katex/katex.min.js',
                 './assets/wysiwyg/plugins/equation/trumbowyg.equation.js',
+                './assets/wysiwyg/mq/mathquill.min.js',
                 './assets/wysiwyg/plugins/base64/trumbowyg.base64.js',
             ];
             var styles = [
-                './assets/wysiwyg/katex/katex.min.css',
+                //'./assets/wysiwyg/katex/katex.min.css',
                 './assets/wysiwyg/plugins/equation/ui/sass/trumbowyg.equation.css',
+                './assets/wysiwyg/mq/mathquill.css',
                 './assets/wysiwyg/ui/trumbowyg.min.css',
             ]
 
