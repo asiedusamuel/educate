@@ -5,7 +5,7 @@ RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php
 RewriteRule ^cpanel/$ index.php?cpanel=true [QSA]
 RewriteRule ^ajax/cpanel/(.*)/$ index.php?ajaxRequest=true&cpanel=true&flag=$1 [QSA]
-RewriteRule ^ajax/site/(.*)/$ index.php?ajaxRequest=true&flag=true [QSA]
+RewriteRule ^ajax/site/(.*)/$ index.php?ajaxRequest=true&flag=$1 [QSA]
 RewriteRule ^(.*)/$ index.php?flag=$1 [QSA]
 php_value upload_max_filesize 1024M
 php_value post_max_size 1224M

@@ -66,7 +66,15 @@ function startTyper() {
 function setPanelSizes() {
     var $screenHeight = $(window).height();
     var $screenWidth = $(window).width();
-    $('.video-panel').css({ height: $screenHeight + "px", width: ($screenWidth - parseInt($('.description-panel').width()) - parseInt($('.nav-panel').width())) });
+
+    var $descPanelWidth = parseInt($('.description-panel').width());
+    if($('.description-panel').hasClass('d-none')) $descPanelWidth = 0;
+
+    var $navPanelWidth = parseInt($('.nav-panel').width());
+    if($('.nav-panel').hasClass('d-none')) $navPanelWidth = 0;
+    console.log($descPanelWidth, $navPanelWidth);
+    
+    $('.video-panel').css({ height: $screenHeight + "px", width: ($screenWidth - $descPanelWidth - $navPanelWidth) });
     $('.description-panel').css({ height: $screenHeight + "px" });
     $('.nav-panel').css({ height: $screenHeight + "px" });
 }
@@ -74,14 +82,9 @@ setPanelSizes();
 
 $(document).ready(function () {
     var images = ['./templates/educate/img/home_section_2.jpg', './templates/educate/img/home_section_3.jpg'];
-    $('.random-bg').css({ 'background-image': 'url(.//' + images[Math.floor(Math.random() * images.length)] + ')' });
-    startTyper();
-    $('#rating').barrating({
-        initialRating: 4.1,
-        theme: 'fontawesome-stars-o',
-        readyonly: true,
-        hoverState: false,
-    });
+    $('.random-bg').css({ 'background-image': 'url(' + images[Math.floor(Math.random() * images.length)] + ')' });
+    startTyper();    
+
     $(".course-brief-tab a").click(function (e) {
         var $href = $(this).attr("href").replace("#", "");
         $('.course-brief-tab a').removeClass('active')
@@ -103,39 +106,11 @@ $(document).ready(function () {
             
     });
 
-    $(".playlist li").click(function (e) {
-        var $nav = $(this).data("nav")
-        $('.playlist li').removeClass('active')
-        $(this).addClass('active')
-
-       
-    });
 
     $(window).resize(function () {
         setPanelSizes();
     });
 
-    window.player = new Plyr('#player');
-    window.player.media["ended"] = function(){alert(32)}
-    console.log(window.player)
-    $(document).on("md-opened", function () {
-        window.player.source = {
-            type: 'video',
-            title: 'Example title',
-            sources: [
-                {
-                    src: './videos/720p/vid.mp4',
-                    type: 'video/mp4',
-                    size: 720,
-                },
-                {
-                    src: '/path/to/movie.webm',
-                    type: 'video/webm',
-                    size: 1080,
-                },
-            ]
-        }
-    });
 
 
 });

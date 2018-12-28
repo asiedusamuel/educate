@@ -151,6 +151,36 @@ if(isset($_REQUEST["view"])){
         return json_encode($res);
     });
 
+    // This route uploads the video files to the server
+    $route->add('/course/{n:id}/upload-image/', [ "content-type"=>'application/JSON', 'controllers'=>["uploader"]], function($id=0){
+        $id = Utils::sanitize($id);
+        $res = [];
+        $db = new Data;
+        $db->Query("SELECT id,flag FROM courses WHERE id = ? LIMIT 1",[$id]);
+        if($db->Count() > 0){
+            $row = $db->Results();
+            $dir = './uploads/courses';
+            $uploadOptions = array(
+                'uploadDir' => $dir."/", //Upload directory {String}
+                'title' => $row["id"],
+                'replace'=>true
+            );
+            $uploader = new Uploader();    
+            $data = $uploader->upload($_FILES['file'], $uploadOptions);
+            if ($data['isComplete']) {
+                $res = $data['data']["metas"][0];
+                $db->Query("UPDATE courses SET image=? WHERE id=? LIMIT 1",[$res['file'], $id]);
+            }
+            if ($data['hasErrors']) {
+                $errors = $data['errors'];
+                return $res['error']= 'An error occured. '.implode(", ", $errors);
+            }         
+        }else{
+            $res["error"] = 'Upload Failed. Invalid Course ID. Make sure course has been save before uploading image';
+        }
+        return json_encode($res);
+    });
+
     // This route saves course details to the database
     $route->add('/course/save/{n:id}/', ["protected"=>true, "content-type"=>'application/JSON', "controllers"=>["cmd"]], function($id){
         $pattern = '/<div (.* data-katex="(.*?)".*)>(.*?)<\/div>/s';
@@ -302,6 +332,12 @@ if(isset($_REQUEST["view"])){
         $res = [];
         if($id){
             $db = new Data;
+            $db->Query("SELECT image FROM courses WHERE id=? LIMIT 1",[$id]);
+            if($db->Count()==1){
+                $row = $db->Results();
+                $img = $row['image'];
+                if(file_exists($img)) unlink($img);
+            }
             $db->Query("DELETE FROM courses WHERE id=? LIMIT 1",[$id]);
             $db->Query("DELETE FROM lessons WHERE course=? LIMIT 1",[$id]);
             $db->Query("DELETE FROM questions WHERE courseID=? LIMIT 1",[$id]);

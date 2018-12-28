@@ -32,11 +32,13 @@ if(!AJAX){
         "./assets/css/semantic.min.css",
         "./assets/css/animated.css",
         "./assets/css/jquery.toast.min.css",
+        "./assets/wysiwyg/mq/mathquill.css",
         "./assets/css/summernote/summernote-bs4.css",
 
         /* System JavaScripts */
         "./assets/js/jquery.min.js", 
         "./assets/js/semantic.min.js",
+        './assets/wysiwyg/mq/mathquill.min.js',
         "./assets/js/semanticfy.js",
         "./assets/js/jquery.form.serialize.js",
         "./assets/js/summernote-bs4.js",

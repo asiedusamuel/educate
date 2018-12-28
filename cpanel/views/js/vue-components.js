@@ -20,7 +20,7 @@ Vue.component('v-bubble-loader', {
 
 
 Vue.component('v-uploader', {
-    props: ["classes", 'allowed', "name"],
+    props: ["classes", 'allowed', "name","text","url"],
     methods: {
         triggerUpload: function () {
             var $btn = $(this.$el);
@@ -59,20 +59,11 @@ Vue.component('v-uploader', {
                     //upload failed
                     $this.$emit('uploading', 'error', [$input, error])
                     dom.find('.progress-bars .ui.progress').hide()
-                    app.message.toast("error", "Upload Alert", "Failed uploading file. Reason: " + error.message)
+                    app.message.toast("error", "Upload Alert", "Failed uploading file. Reason: " + error.error)
                 }
             });
             Upload.execute();
-            /* try {
-                 $input.simpleUpload(AJAX_URL + $url, {
-                allowedExts: $allowd,
-                
-
-            }); 
-            } catch (error) {
-                console.log(error)
-            } */
-
+            $input.val('')
         },
         Upload: function (file) {
             var $this = this;
@@ -105,6 +96,7 @@ Vue.component('v-uploader', {
             };
             Upload.prototype.execute = function () {
                 var that = this;
+                
                 var formData = new FormData();
                 // add assoc key values, this will be posts values
                 formData.append("file", this.file, this.getName());
@@ -130,10 +122,15 @@ Vue.component('v-uploader', {
                         return myXhr;
                     },
                     success: function (data) {
-                        that.options.success(data)
+                        if(!data.error){
+                            that.options.success(data)
+                        }else{
+                            that.options.error(data)
+                        }
+                        
                     },
                     error: function (error) {
-                        that.options.error(data)
+                        that.options.error(error)
                     },
                     async: true,
                     data: formData,
@@ -148,9 +145,9 @@ Vue.component('v-uploader', {
         }
     },
     template: `<div class="v-uploader">
-                    <button @click="triggerUpload" style="margin-bottom:12px;" :class="'ui button icon '+ classes">
-                        <i class="icon upload"></i> Upload Video
-                        <input @change="startUpload" :data-allowed="allowed" :name="name" style="display:none;" type="file" />
+                    <button @click="triggerUpload" type="button" style="margin-bottom:12px;" :class="'ui button icon '+ classes">
+                        <i class="icon upload"></i> {{text}}
+                        <input @change="startUpload" :data-allowed="allowed" :data-url="url" :name="name" style="display:none;" type="file" />
                     </button>
                     <div class="progress-bars">
                         <div class="ui progress" data-percent="0" style="display:none">
@@ -244,13 +241,11 @@ Vue.component('v-wysiwyg', {
             var scripts = [
                 //'./assets/wysiwyg/katex/katex.min.js',
                 './assets/wysiwyg/plugins/equation/trumbowyg.equation.js',
-                './assets/wysiwyg/mq/mathquill.min.js',
                 './assets/wysiwyg/plugins/base64/trumbowyg.base64.js',
             ];
             var styles = [
                 //'./assets/wysiwyg/katex/katex.min.css',
                 './assets/wysiwyg/plugins/equation/ui/sass/trumbowyg.equation.css',
-                './assets/wysiwyg/mq/mathquill.css',
                 './assets/wysiwyg/ui/trumbowyg.min.css',
             ]
 

@@ -29,7 +29,7 @@ class Courses{
 
     static function getCourseDetails($course){
         $db = new Data;
-        $db->Query("SELECT flag,course,image,overview FROM courses WHERE flag='$course' LIMIT 1");
+        $db->Query("SELECT id,flag,course,image,overview FROM courses WHERE flag='$course' LIMIT 1");
         if($db->Count() !=0){
             return $db->Results();
         }else{

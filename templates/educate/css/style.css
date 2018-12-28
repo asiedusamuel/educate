@@ -24,8 +24,8 @@ a:hover {
 }
 
 .wrap-content {
-    display: table;
-    height: 100%;
+    display: block;
+    height: auto;
     width: 100%;
 }
 
@@ -422,6 +422,7 @@ section.footer .footer-links li.author a {
 .btn-custom.blue {
     background-color: #4ec6ce;
     border: 1px solid #4ec6ce;
+    color: #fff;
 }
 
 .btn-custom.blue:hover {
@@ -514,8 +515,9 @@ section.footer .footer-links li.author a {
     background-size: 10px;
     background-repeat: no-repeat;
     padding: 15px 10px 10px;
-    margin: 0 5px;
+    margin: -2px 5px;
     content: "";
+    float: right;
 }
 
 .breadcrumb-wrapper .breadcrumb li:hover a, .breadcrumb-wrapper .breadcrumb li:last-child a {
@@ -869,7 +871,7 @@ section.footer .footer-links li.author a {
 }
 
 #modal-start-lesson .md-content .nav-panel a.md-icon.md-info::before {
-    background-image: url(../img/md-info.png);
+    background-image: url(../img/md-play.png);
 }
 
 #modal-start-lesson .md-content .nav-panel a.md-icon.md-attachment::before {

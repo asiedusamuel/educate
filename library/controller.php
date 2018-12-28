@@ -102,10 +102,8 @@ class Controller{
 				}
 				break;
 				case "plugin":
-                if(isset($params["page"], $params["element"])){
-                    $page = $params["page"];
-                    $shortcode = $params["shortcode"];
-                    $plg = self::renderPlugin($shortcode, $page, $params);
+                if(isset($params["shortcode"],$params["execute"])){
+                    $plg = self::renderPlugin($params);
                     return self::parseHTML($plg);
 				}
 				break;
@@ -121,8 +119,17 @@ class Controller{
 		}
 	}
 
-	private static function renderPlugin($shortcode, $page, $params){
-		$pageID = $_REQUEST["pageID"];
-		return $pageID;
+	private static function renderPlugin($params){
+        $shortcode = $params["shortcode"];
+        $execute = $params["execute"];
+        $pluginFile = dirname(__FILE__).'/plugins/'.$shortcode.'/plugin.php';
+        if(file_exists($pluginFile)){
+            if(!class_exists($shortcode)) include_once($pluginFile);
+            $plugin = new $shortcode;
+            if(method_exists($plugin,$execute)){
+                return $plugin->$execute($params);
+            }
+        }
+		return;
 	}
 }

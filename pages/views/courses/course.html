@@ -8,7 +8,9 @@
                             <img src="./uploads/courses/e-maths.jpg" class="img-fluid" />
                         </div>
                         <div class="col-lg-8 col-md-8">
-                            <h3 class="course-title">Elective Mathematics</h3>
+                            <h3 class="course-title">
+                                <%course%>
+                            </h3>
                             <a href="javascript:;" class="btn-custom mb-2 md-trigger" data-modal="modal-start-lesson">Start
                                 Learning</a>
                             <a href="javascript:;" class="btn-custom blue mb-2 md-trigger" data-modal="modal-take-test">Take
@@ -57,7 +59,7 @@
                 <div class="tab-pane fade" id="modules" role="tabpanel" aria-labelledby="modules-tab">
                     <div class="module">
                         <!-- <h5>Level 100</h3> -->
-                        <%lessons%>                            
+                        <%lessons%>
                     </div>
                     <a href="#" class="btn-custom md-trigger" data-modal="modal-take-test">Take End of Course
                         Test</a>
@@ -132,3 +134,107 @@
         </div>
     </div>
 </div>
+<div class="md-modal md-effect" id="modal-start-lesson">
+    <div class="md-content">
+        <div class="video-panel">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                    </div>
+                </div>
+            </div>
+            <div class="outer">
+                <div class="middle">
+                    <div class="inner">
+                        <video id="player" playsinline controls>
+                            <!-- <source src="/path/to/video.webm" type="video/webm"> -->
+                            <!-- Captions are optional -->
+                            <!-- <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default> -->
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="description-panel d-none">
+            <div data-nav="info">
+                <h4 class="title">Elective Mathematics</h4>
+                <ul class="playlist">
+                    <li class="active">
+                        <span class="lesson">Lesson 1: Introduction to Mathematics</span>
+                        <span class="time">50:34</span>
+                    </li>
+                    <li>
+                        <span class="lesson">Lesson 1: Introduction to Mathematics</span>
+                        <span class="time">50:34</span>
+                    </li>
+                    <li>Lesson 2</li>
+                    <li>Lesson 3</li>
+                    <li>Lesson 4</li>
+                </ul>
+            </div>
+            <div data-nav="attachment">
+                <div class="title">Course Attachment</div>
+            </div>
+            <div data-nav="notes" class="active">
+                <h4 class="title">My Notes</h4>
+                <div class="row toolbar">
+                    <div class="col cmd save">Save</div>
+                    <div class="col cmd add-note">Add Note</div>
+                </div>
+            </div>
+            <div data-nav="comments">comments</div>
+        </div>
+        <div class="nav-panel">
+            <ul>
+                <li><a href="javascript:void(0);" class="md-icon md-close"></a></li>
+                <li><a href="javascript:void(0);" class="md-icon md-info active" data-nav="info"></a></li>
+                <li><a href="javascript:void(0);" class="md-icon md-attachment" data-nav="attachment"></a></li>
+                <li><a href="javascript:void(0);" class="md-icon md-note" data-nav="notes"></a></li>
+                <li><a href="javascript:void(0);" class="md-icon md-comments" data-nav="comments"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="md-modal md-effect" id="modal-take-test">
+    <div class="md-content">
+        <div class="outer">
+            <div class="middle">
+                <div class="inner">
+                    <div class="container">
+                        <div class="row test-panel">
+                            <div class="col-lg-10">
+                                <img alt="logo" src="./img/logo_green.png" />
+                            </div>
+                            <div class="col-lg-2 text-right">
+                                <h1 class="timer">0:00</h1>
+                            </div>
+                            <div class="col-lg-8 offset-2 stage">
+                                <div class="notice">
+                                    <div style="text-align:center;">
+                                        <img src="./img/notice.png" alt="notice" />
+                                    </div> 
+                                    <h3 class="notice-title">Notice</h3>
+                                    <p>
+                                        Please read the following instructions.
+                                        <ol>
+                                            <li>You have <strong>30 question</strong> in all to answer.</li>
+                                            <li>You have approximately <strong>1 minute</strong> for each question.</li>
+                                            <li>When your time for a question ellapse, the system will automatically skip to next question. </li>
+                                            <li>Once ready click on the START button below </li>
+                                        </ol>
+                                    <div style="text-align:center; padding-top: 15px;"> 
+                                        <a href="javascript:void(0);" style="width:30%;" class="btn-custom">START</a> 
+                                        <a href="javascript:void(0);" style="width:30%;" class="btn-custom red md-close">NOT READY YET</a> 
+                                    </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="md-overlay"></div>

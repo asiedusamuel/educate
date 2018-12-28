@@ -16,6 +16,8 @@ export default {
             dom.find('.ui.form.course .note-editable').html('<p></p>');
             dom.find('.ui.form.course input[name=alias]').val('');
             dom.find('.ui.form.course input[name=id]').val('');
+            dom.find('.ui.form.course img.course-image').hide()
+            dom.find('.ui.form.course .course-image-uploader input[type=file]').attr('data-url', 'course/0/upload-image/')
             dom.find('.ui.form.course');
             var tpl = {
                 id: "",
@@ -32,7 +34,7 @@ export default {
         },
         // This function deletes course from server and vue data
         deleteCourse: function (e) {
-            var $el = $(e.target);
+            var $el = this.findClickable($(e.target), 'cmd');
             var dom = $(this.$el);
             var $id = $el.data('id');
             var _id = this.data.courses[$id].id;
@@ -78,26 +80,30 @@ export default {
         // Make course editor visible to display details of selected course
         viewCourse: function (e) {
             var dom = $(this.$el);
-            var $el = $(e.target);
-            if (!$el.hasClass('cmd')) {
-                var $id = $el.data('id');
-                var $course = this.data.courses[$id];
-                dom.find('.ui.placeholder.segment').hide();
-                dom.find('.ui.form.course').data("id", $id);
-                dom.find('.ui.form.course input[name=course]').val($course.course);
-                dom.find('.ui.form.course input[name=id]').val($course.id);
-                dom.find('.ui.form.course input[name=alias]').val($course.flag);
-                dom.find('.ui.form.course .trumbowyg-textarea').trumbowyg('html', $course.overview);
-                if ($this.data.lessons[$id]) {
-                    $this.data.lessons.selected = $this.data.lessons[$id];
-                } else {
-                    $this.data.lessons.selected = [];
-                    if ($this.data.lessons.selected.length == 0) {
-                        dom.find('.stage-content .ui.menu a[data-tab=edit]').click();
-                    }
+            var $el = this.findClickable($(e.target), 'course-item');
+            var $id = $el.data('id');
+            var $course = this.data.courses[$id];
+            dom.find('.ui.placeholder.segment').hide();
+            dom.find('.ui.form.course').data("id", $id);
+            dom.find('.ui.form.course input[name=course]').val($course.course);
+            dom.find('.ui.form.course input[name=id]').val($course.id);
+            dom.find('.ui.form.course input[name=alias]').val($course.flag);
+            if($course.image=='' || $course.image== null){
+                dom.find('.ui.form.course img.course-image').hide()
+            }else{
+                dom.find('.ui.form.course img.course-image').attr('src',$course.image.substring(2)).show()
+            }            
+            dom.find('.course-image-uploader input[type=file]').attr('data-url', 'course/' + $course.id + '/upload-image/')
+            dom.find('.ui.form.course .trumbowyg-textarea').trumbowyg('html', $course.overview);
+            if ($this.data.lessons[$id]) {
+                $this.data.lessons.selected = $this.data.lessons[$id];
+            } else {
+                $this.data.lessons.selected = [];
+                if ($this.data.lessons.selected.length == 0) {
+                    dom.find('.stage-content .ui.menu a[data-tab=edit]').click();
                 }
-
             }
+
 
         },
         // This is an event handler which is triggered on inputs in the course editor.
@@ -116,6 +122,7 @@ export default {
         },
         // This function saves course either on edit or new entry
         saveCourse: function (form) {
+            var dom = $(this.$el);
             var $form = $(form.target);
             var $id = $form.data('id');
             $form.addClass('loading');
@@ -134,6 +141,7 @@ export default {
                         if (res.id) {
                             $this.data.courses[$id].id = res.id;
                             $form.find('input[name=id]').val(res.id);
+                            dom.find('.course-image-uploader input[type=file]').attr('data-url', 'course/' + res.id + '/upload-image/')
                         }
                     } else {
                         app.message.toast("error", "Course Processing", res.error)
@@ -208,6 +216,34 @@ export default {
                     }
                     break;
             }
+        },
+        /** This function handles events on course image upload with returning values (action, data)
+        * @param action - Refers to the action of the event e.g. start, progress, success, error
+        * @param data - This includes the element used for the upload, and data related to the action thrown
+        */
+       uploadImage: function (action, data) {
+            var dom = $(this.$el)
+            var $id = dom.find('.stage-sidebar ul.list li.active a').data('id');
+            switch (action) {
+                case 'success':
+                    var $data = data[1];
+                    var $input = data[0];
+                    var config = this.$root.$data.config;
+                    if (!$data.error) {
+                        var $url = $data.file.substring(2)
+                        dom.find('img.course-image').attr('src',$url).show();
+                        this.data.courses[$id].image = $data.file;
+                        //source.setAttribute('src', config.url + $data.file.substring(2))
+                        
+                    }
+                    break;
+            }
+        },
+        findClickable: function ($element, $findClass) {
+            if (!$element.hasClass($findClass)) {
+                return this.findClickable($element.parent(), $findClass);
+            }
+            return $element;
         }
     },
     watch: {
@@ -396,7 +432,7 @@ export default {
                                     url: AJAX_URL + 'course/lesson/delete/' + _id + '/',
                                     dataType: 'json',
                                     success: function (res) {
-                                        if (!res.error) {                                          
+                                        if (!res.error) {
 
                                             $this.$parent.data.lessons[$courseKey] = $this.$parent.data.lessons[$courseKey].filter(function (el, i) { return i != $id });
                                             $this.$parent.data.lessons.selected = $this.$parent.data.lessons[$courseKey];
@@ -422,7 +458,7 @@ export default {
                 switchToVideoPane: function (e) {
                     var config = this.$root.$data.config;
                     var dom = $(this.$parent.$el);
-                    var $btn = $(e.target);
+                    var $btn = this.$parent.findClickable($(e.target), 'ui button');
                     var $id = $btn.data('id');
                     $btn.addClass('loading disabled')
                     $.ajax({

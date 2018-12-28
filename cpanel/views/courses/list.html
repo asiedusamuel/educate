@@ -3,7 +3,7 @@
 		Add New Course</a>
 	<ul class="list">
 		<li v-for="(item, key) in data.courses">
-			<a href="javascript:;" v-bind:data-id="key" v-on:click="viewCourse">
+			<a href="javascript:;" class="course-item" v-bind:data-id="key" v-on:click="viewCourse">
 				{{ item.course }}
 				<button data-content="Delete" data-variation="mini inverted" data-position="left center" class="cmd icon-only ui button mini icon"
 				 :data-id="key" v-on:click="deleteCourse">
@@ -44,6 +44,16 @@
 						<small class="gray">For simple URL Eg. http://localhost.com/e-maths/. Note: No whitespaces are allowed. Replace
 							all whitespaces with hyphen (-)</small>
 					</div>
+					<div class="field col-lg-6 p-0">
+						<label>Course Image</label>
+						<div class="ui input">
+							<v-uploader @uploading="uploadImage" classes="course-image-uploader" text="Upload Course Image" name="file" allowed="png,jpg"></v-uploader>
+						</div>
+						<div class="ui input">
+							<img class="course-image" src="" style="width:200px" height="90px"/>
+						</div>
+						<small class="gray">An image to represent course in the Course Explorer Page.</small>
+					</div>
 					<div class="field">
 						<label>Course Overview</label>
 						<div class="ui input">
@@ -72,7 +82,7 @@
 						<div class="pane">
 							<h5>HD 720p</h5>
 							<div class="pane-content">
-								<v-uploader @uploading="uploading" classes="uploader720p" name="file" allowed="mp4"></v-uploader>
+								<v-uploader @uploading="uploading" text="Upload Video" classes="uploader720p" name="file" allowed="mp4"></v-uploader>
 								<div class="ui error error-720 floating message">
 									<p>No video upload in this format. Upload one now</p>
 								</div>
@@ -87,7 +97,7 @@
 						<div class="pane">
 							<h5>360p</h5>
 							<div class="pane-content">
-								<v-uploader @uploading="uploading" classes="uploader360p" allowed="mp4,3gp"></v-uploader>
+								<v-uploader @uploading="uploading" text="Upload Video" classes="uploader360p" allowed="mp4,3gp"></v-uploader>
 								<div class="ui error error-360 floating message">
 									<p>No video upload in this format. Upload one now</p>
 								</div>

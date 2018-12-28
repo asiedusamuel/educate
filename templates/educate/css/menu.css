@@ -138,6 +138,7 @@
   background: #ffffff;
   text-decoration: none;
   color: #333333;
+  white-space: nowrap;
   -webkit-transition: color .2s ease;
   -moz-transition: color .2s ease;
   -ms-transition: color .2s ease;
